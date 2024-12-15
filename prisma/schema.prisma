@@ -7,6 +7,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum TaskPriority {
+  low
+  normal
+  high
+}
+
 model Account {
   id                String  @id @default(cuid())
   userId            String
@@ -41,4 +47,19 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  Task          Task[]
+}
+
+model Task {
+  id        String       @id @default(cuid())
+  userId    String
+  title     String
+  content   String?
+  status    String       @default("active")
+  priority  TaskPriority @default(low)
+  completed Boolean      @default(false)
+  dueDate   DateTime?    @default(now())
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
