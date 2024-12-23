@@ -1,49 +1,57 @@
-"use client"
-
 import { Icon } from "@iconify/react"
-import { signOut, useSession } from "next-auth/react"
-import { useTheme } from "next-themes"
-import Image from "next/image"
 import Link from "next/link"
 
 export default function Navbar() {
-	const { data: session } = useSession()
-	const { theme, setTheme } = useTheme()
-
-	const handleThemeToggle = () => {
-		setTheme(theme === "light" ? "dark" : "light")
-	}
+	const navItems = [
+		{
+			icon: (
+				<Icon
+					icon="material-symbols:grid-view-outline-rounded"
+					className="icon h-6 w-6 text-primary hover:text-secondary"
+				/>
+			),
+			title: "All",
+			link: "/"
+		},
+		{
+			icon: <Icon icon="mdi:stopwatch-check-outline" className="icon h-6 w-6 text-primary hover:text-secondary" />,
+			title: "Completed",
+			link: "/completed"
+		},
+		{
+			icon: <Icon icon="mdi:stopwatch-play-outline" className="icon h-6 w-6 text-primary hover:text-secondary" />,
+			title: "Pending",
+			link: "/pending"
+		},
+		{
+			icon: <Icon icon="mdi:stopwatch-alert-outline" className="icon h-6 w-6 text-primary hover:text-secondary" />,
+			title: "Overdue",
+			link: "/overdue"
+		}
+	]
 
 	return (
-		<nav className="flex items-center justify-between p-2 shadow-md">
-			<div className="flex items-center gap-2">
-				<Link className="button" href="/">
-					Home
-				</Link>
-			</div>
+		<div className="flex flex-col pl-2">
+			<div className="mt-12 flex flex-1 flex-col items-center justify-between">
+				<ul className="flex flex-col gap-8">
+					{navItems.map((item, index) => (
+						<li className="group relative" key={index}>
+							<Link href={item.link}>
+								{item.icon}
+								<span className="pointer-events-none absolute left-8 top-[50%] translate-y-[-50%] rounded-lg bg-accent p-1 text-xs text-accent-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+									{item.title}
+								</span>
+							</Link>
+						</li>
+					))}
+				</ul>
 
-			<div className="flex items-center gap-2">
-				<button onClick={handleThemeToggle} className="button h-10 w-10">
-					<Icon
-						icon={theme === "light" ? "material-symbols:light-mode-rounded" : "material-symbols:dark-mode-rounded"}
-					/>
-				</button>
-
-				{session ? (
-					<div className="flex items-center gap-2">
-						<button onClick={() => signOut()} className="button">
-							Sign Out
-						</button>
-						{session.user.image && (
-							<Image src={session.user.image} alt={session.user.name || ""} width={40} height={40} className="avatar" />
-						)}
-					</div>
-				) : (
-					<Link href="/login" className="button">
-						Sign In
-					</Link>
-				)}
+				<div className="mb-20">
+					<button className="flex h-10 w-10 items-center justify-center rounded-full border border-destructive text-destructive hover:border-muted">
+						<Icon icon="material-symbols:delete-forever" className="icon h-6 w-6" />
+					</button>
+				</div>
 			</div>
-		</nav>
+		</div>
 	)
 }

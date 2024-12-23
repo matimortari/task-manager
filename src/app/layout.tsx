@@ -1,11 +1,14 @@
 import Providers from "@/src/components/context/Providers"
 import Footer from "@/src/components/Footer"
-import Navbar from "@/src/components/Navbar"
 import { authOptions } from "@/src/lib/auth"
 import "@/src/styles/globals.css"
 import type { Metadata } from "next"
 import { getServerSession } from "next-auth"
 import { Inter } from "next/font/google"
+import { Toaster } from "react-hot-toast"
+import Header from "../components/Header"
+import Navbar from "../components/Navbar"
+import SideBar from "../components/Sidebar"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -21,8 +24,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 		<html lang="en" suppressHydrationWarning>
 			<body className={inter.className}>
 				<Providers session={session}>
-					<Navbar />
-					{children}
+					<Toaster position="top-center" />
+					<Header />
+					<div className="flex h-screen">
+						<Navbar />
+						<main className="flex-1">{children}</main>
+						<SideBar />
+					</div>
 					<Footer />
 				</Providers>
 			</body>
