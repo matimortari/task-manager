@@ -26,7 +26,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 				<Providers session={session}>
 					<Toaster position="top-center" />
 					<Header />
-					<div className="flex h-screen">
+					<div className="flex min-h-screen flex-col md:flex-row">
 						<Navbar />
 						<main className="flex-1">{children}</main>
 						<SideBar />

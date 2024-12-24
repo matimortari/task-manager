@@ -12,7 +12,7 @@ export default function Login() {
 	}
 
 	return (
-		<div className="m-8 flex h-screen flex-col items-center">
+		<div className="flex h-screen flex-col items-center">
 			<div className="flex flex-col items-center justify-center p-8">
 				<strong className="p-4 text-5xl">Sign In</strong>
 				<p className="text-muted-foreground">Sign in with your preferred provider.</p>

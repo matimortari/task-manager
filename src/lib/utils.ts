@@ -1,6 +1,13 @@
+import { type ClassValue, clsx } from "clsx"
 import { getServerSession } from "next-auth"
 import { NextResponse } from "next/server"
+import { twMerge } from "tailwind-merge"
 import { authOptions } from "./auth"
+
+// Use a helper to make it easier to conditionally add Tailwind CSS classes
+export function cn(...inputs: ClassValue[]) {
+	return twMerge(clsx(inputs))
+}
 
 // Helper function to get the session or return an unauthorized JSON response
 export async function getSessionOrUnauthorized() {

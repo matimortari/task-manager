@@ -4,12 +4,7 @@ import Link from "next/link"
 export default function Navbar() {
 	const navItems = [
 		{
-			icon: (
-				<Icon
-					icon="material-symbols:grid-view-outline-rounded"
-					className="icon h-6 w-6 text-primary hover:text-secondary"
-				/>
-			),
+			icon: <Icon icon="mdi:grid-large" className="icon h-6 w-6 text-primary hover:text-secondary" />,
 			title: "All",
 			link: "/"
 		},
@@ -31,14 +26,14 @@ export default function Navbar() {
 	]
 
 	return (
-		<div className="flex flex-col pl-2">
+		<div className="flex flex-col px-2">
 			<div className="mt-12 flex flex-1 flex-col items-center justify-between">
 				<ul className="flex flex-col gap-8">
 					{navItems.map((item, index) => (
 						<li className="group relative" key={index}>
 							<Link href={item.link}>
 								{item.icon}
-								<span className="pointer-events-none absolute left-8 top-[50%] translate-y-[-50%] rounded-lg bg-accent p-1 text-xs text-accent-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+								<span className="absolute left-8 top-[50%] translate-y-[-50%] rounded-lg bg-accent p-1 text-xs text-accent-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100">
 									{item.title}
 								</span>
 							</Link>
@@ -46,9 +41,9 @@ export default function Navbar() {
 					))}
 				</ul>
 
-				<div className="mb-20">
+				<div className="mb-24">
 					<button className="flex h-10 w-10 items-center justify-center rounded-full border border-destructive text-destructive hover:border-muted">
-						<Icon icon="material-symbols:delete-forever" className="icon h-6 w-6" />
+						<Icon icon="mdi:remove-bold" className="icon h-6 w-6" />
 					</button>
 				</div>
 			</div>
