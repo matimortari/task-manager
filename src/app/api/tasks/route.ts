@@ -3,7 +3,7 @@ import { getSessionOrUnauthorized } from "@/src/lib/utils"
 import { NextRequest, NextResponse } from "next/server"
 
 // GET method for getting user tasks
-export async function GET(req: NextRequest) {
+export async function GET() {
 	const { error, session, response } = await getSessionOrUnauthorized()
 	if (error) return response
 

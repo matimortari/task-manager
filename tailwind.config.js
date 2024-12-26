@@ -10,6 +10,10 @@ const config = {
 					DEFAULT: "var(--card)",
 					foreground: "var(--card-foreground)"
 				},
+				popover: {
+					DEFAULT: "var(--popover)",
+					foreground: "var(--popover-foreground)"
+				},
 				primary: {
 					DEFAULT: "var(--primary)",
 					foreground: "var(--primary-foreground)"
@@ -22,16 +26,26 @@ const config = {
 					DEFAULT: "var(--accent)",
 					foreground: "var(--accent-foreground)"
 				},
-				muted: {
-					DEFAULT: "var(--muted)",
-					foreground: "var(--muted-foreground)"
-				},
 				destructive: {
 					DEFAULT: "var(--destructive)",
 					foreground: "var(--destructive-foreground)"
 				},
-				google: "#DB4437", // Google Login
-				github: "#333333" // GitHub Login
+				muted: {
+					DEFAULT: "var(--muted)",
+					foreground: "var(--muted-foreground)"
+				},
+				border: "var(--border)",
+				input: "var(--input)",
+				ring: "var(--ring)",
+				chart: {
+					1: "var(--chart-1)",
+					2: "var(--chart-2)",
+					3: "var(--chart-3)",
+					4: "var(--chart-4)",
+					5: "var(--chart-5)"
+				},
+				google: "#DB4437", // Google Sigin Button
+				github: "#333333" // GitHub Sigin Button
 			}
 		}
 	}

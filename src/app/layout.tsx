@@ -5,6 +5,7 @@ import "@/src/styles/globals.css"
 import type { Metadata } from "next"
 import { getServerSession } from "next-auth"
 import { Inter } from "next/font/google"
+import { ReactNode } from "react"
 import { Toaster } from "react-hot-toast"
 import Header from "../components/Header"
 import Navbar from "../components/Navbar"
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
 	description: "Simple task manager web application."
 }
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
 	const session = await getServerSession(authOptions)
 
 	return (

@@ -13,12 +13,13 @@ import { Analytics } from "@vercel/analytics/react"
 import { Session } from "next-auth"
 import { SessionProvider } from "next-auth/react"
 import { ThemeProvider } from "next-themes"
+import { ReactNode } from "react"
 
 const queryClient = new QueryClient({
 	defaultOptions: { queries: { staleTime: 60 * 1000 } }
 })
 
-export default function Providers({ children, session }: { children: React.ReactNode; session: Session | null }) {
+export default function Providers({ children, session }: { children: ReactNode; session: Session | null }) {
 	return (
 		<SessionProvider session={session}>
 			<QueryClientProvider client={queryClient}>

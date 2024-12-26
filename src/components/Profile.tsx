@@ -20,7 +20,7 @@ export default function Profile() {
 				alt="Profile Picture"
 				width={40}
 				height={40}
-				className="avatar"
+				className="rounded-full"
 			/>
 
 			<div className="flex flex-col gap-8">

@@ -86,11 +86,6 @@
 	transform: scale(1.2);
 }
 
-.avatar {
-	box-shadow: 1px 0px 4px 0px var(--muted);
-	border-radius: 100%;
-}
-
 .title {
 	font-size: 1.5rem;
 	line-height: 2rem;

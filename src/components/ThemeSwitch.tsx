@@ -39,7 +39,7 @@ export default function ThemeSwitch() {
 				<input
 					id="theme-switch"
 					type="checkbox"
-					className="h-0 w-0 opacity-0"
+					className="size-0 opacity-0"
 					checked={isDarkMode}
 					onChange={toggleTheme}
 				/>
