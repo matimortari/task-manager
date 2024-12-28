@@ -1,7 +1,8 @@
 "use client"
 
-import { useSession } from "next-auth/react"
+import { signOut, useSession } from "next-auth/react"
 import Image from "next/image"
+import Link from "next/link"
 import ThemeSwitch from "./ThemeSwitch"
 
 export default function Header() {
@@ -26,6 +27,18 @@ export default function Header() {
 			<div className="flex items-center">
 				<button className="btn bg-accent text-sm text-accent-foreground">Create New Task</button>
 			</div>
+
+			{session ? (
+				<div className="flex items-center gap-2">
+					<button onClick={() => signOut()} className="btn">
+						Sign Out
+					</button>
+				</div>
+			) : (
+				<Link href="/login" className="btn">
+					Sign In
+				</Link>
+			)}
 
 			<div className="flex items-center">
 				<ThemeSwitch />

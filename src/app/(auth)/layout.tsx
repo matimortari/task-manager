@@ -7,9 +7,6 @@ import { getServerSession } from "next-auth"
 import { Inter } from "next/font/google"
 import { ReactNode } from "react"
 import { Toaster } from "react-hot-toast"
-import Header from "../components/Header"
-import Navbar from "../components/Navbar"
-import SideBar from "../components/Sidebar"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -26,12 +23,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
 			<body className={inter.className}>
 				<Providers session={session}>
 					<Toaster position="top-center" />
-					<Header />
-					<div className="flex min-h-screen flex-col md:flex-row">
-						<Navbar />
-						<main className="flex-1">{children}</main>
-						<SideBar />
-					</div>
+					{children}
 					<Footer />
 				</Providers>
 			</body>
