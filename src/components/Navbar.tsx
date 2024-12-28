@@ -26,26 +26,22 @@ export default function Navbar() {
 	]
 
 	return (
-		<div className="flex flex-col">
-			<div className="mt-12 flex flex-col items-center justify-between">
-				<ul className="flex flex-col gap-8">
-					{navItems.map((item, index) => (
-						<li className="group relative" key={index}>
-							<Link href={item.link}>
-								{item.icon}
-								<span className="absolute left-8 top-1/2 translate-y-1/2 rounded-lg bg-accent p-1 text-xs text-accent-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-									{item.title}
-								</span>
-							</Link>
-						</li>
-					))}
-				</ul>
+		<div className="my-2 flex h-full flex-row items-center justify-between px-12 md:my-6 md:flex-col">
+			<ul className="flex flex-row gap-8 md:flex-col">
+				{navItems.map((item, index) => (
+					<li className="group relative" key={index}>
+						<Link href={item.link}>
+							{item.icon}
+							<span className="tooltip">{item.title}</span>
+						</Link>
+					</li>
+				))}
+			</ul>
 
-				<div className="mb-24">
-					<button className="flex size-10 items-center justify-center rounded-full border border-destructive text-destructive hover:border-muted">
-						<Icon icon="mdi:remove-bold" className="icon size-6" />
-					</button>
-				</div>
+			<div className="mt-auto md:mb-36">
+				<button className="flex size-10 items-center justify-center rounded-full border border-destructive text-destructive hover:border-muted">
+					<Icon icon="mdi:remove-bold" className="icon size-6" />
+				</button>
 			</div>
 		</div>
 	)

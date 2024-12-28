@@ -1,9 +1,9 @@
 "use client"
-import { TrendingUp } from "lucide-react"
-import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts"
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/src/components/ui/card"
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/src/components/ui/chart"
+import { TrendingUp } from "lucide-react"
+import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts"
 
 export const description = "A radial chart with stacked sections"
 
@@ -28,9 +28,7 @@ export default function RadialChart() {
 	]
 
 	const activeTasks = tasks.filter((task) => !task.completed)
-
 	const completedTasks = tasks.filter((task) => task.completed)
-
 	const tasksTotal = tasks.length
 
 	const chartData = [

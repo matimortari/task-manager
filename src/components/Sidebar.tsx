@@ -5,10 +5,12 @@ import RadialChart from "./RadialChart"
 
 export default function SideBar() {
 	return (
-		<div className="mt-12 flex flex-col items-center justify-between">
-			<Profile />
+		<div className="mt-6 flex h-full flex-col items-center gap-8">
+			<div className="mx-4 flex items-center justify-between">
+				<Profile />
+			</div>
 
-			<div className="m-4 flex flex-col items-center justify-between gap-2">
+			<div className="mx-4 flex items-center justify-between md:mb-28">
 				<RadialChart />
 			</div>
 		</div>
