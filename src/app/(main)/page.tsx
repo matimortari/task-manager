@@ -7,13 +7,34 @@ import TaskItem from "@/src/components/TaskItem"
 import { useState } from "react"
 
 export default function Home() {
-	const { tasks, toggleAddTaskModal, task, handleInput, createTask, modalMode, closeModal } = useTasks()
+	const {
+		tasks,
+		toggleAddTaskModal,
+		task,
+		handleInput,
+		createTask,
+		modalMode,
+		closeModal,
+		toggleEditTaskModal,
+		deleteTask
+	} = useTasks()
 	const [isModalOpen, setIsModalOpen] = useState(false)
 
 	// Handle opening the modal for adding a task
 	const handleAddTask = () => {
 		toggleAddTaskModal() // Set modalMode to "add"
 		setIsModalOpen(true)
+	}
+
+	// Handle opening the modal for editing a task
+	const handleEditTask = (task) => {
+		toggleEditTaskModal(task) // Set modalMode to "edit" and pass the task to edit
+		setIsModalOpen(true)
+	}
+
+	// Handle deleting a task
+	const handleDeleteTask = (taskId: string) => {
+		deleteTask(taskId)
 	}
 
 	// Handle closing the modal
@@ -42,7 +63,7 @@ export default function Home() {
 	return (
 		<div className="card min-h-screen">
 			<Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-				<h2 className="title">Add a New Task</h2>
+				<h2 className="title">{modalMode === "add" ? "Add a New Task" : "Edit Task"}</h2>
 				<form className="flex flex-col gap-4 py-4" onSubmit={handleSubmit}>
 					<div className="flex flex-col gap-1">
 						<label htmlFor="title">Task Title</label>
@@ -93,7 +114,7 @@ export default function Home() {
 					</div>
 
 					<button type="submit" className={`btn bg-primary`}>
-						Create Task
+						{modalMode === "add" ? "Create Task" : "Update Task"}
 					</button>
 				</form>
 			</Modal>
@@ -102,7 +123,7 @@ export default function Home() {
 
 			<div className="my-4 grid grid-cols-3 gap-4">
 				{tasks.map((task) => (
-					<TaskItem key={task.id} task={task} />
+					<TaskItem key={task.id} task={task} handleEditTask={handleEditTask} handleDeleteTask={handleDeleteTask} />
 				))}
 
 				<button
