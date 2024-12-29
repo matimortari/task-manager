@@ -8,9 +8,9 @@ export default function Home() {
 	const { tasks } = useTasks()
 
 	return (
-		<div className="card h-screen">
+		<div className="card min-h-screen">
 			<Filters />
-			<div className="mt-6 grid grid-cols-3 gap-6 pb-8">
+			<div className="my-4 grid grid-cols-3 gap-4">
 				{tasks.map((task: Task, i: number) => (
 					<TaskItem key={i} task={task} />
 				))}

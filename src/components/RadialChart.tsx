@@ -3,6 +3,7 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/src/components/ui/card"
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/src/components/ui/chart"
 import { TrendingUp } from "lucide-react"
+import { useSession } from "next-auth/react"
 import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts"
 
 export const description = "A radial chart with stacked sections"
@@ -19,6 +20,13 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export default function RadialChart() {
+	const { data: session, status } = useSession()
+
+	// Render nothing if the user is not authenticated
+	if (status !== "authenticated") {
+		return null
+	}
+
 	const tasks = [
 		{ id: 1, title: "Task 1", completed: true },
 		{ id: 2, title: "Task 2", completed: false },

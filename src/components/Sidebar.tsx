@@ -5,7 +5,7 @@ import RadialChart from "./RadialChart"
 
 export default function SideBar() {
 	return (
-		<div className="mt-6 flex h-full flex-col items-center gap-8">
+		<div className="my-6 flex h-full flex-col items-center justify-between">
 			<div className="mx-4 flex items-center justify-between">
 				<Profile />
 			</div>
