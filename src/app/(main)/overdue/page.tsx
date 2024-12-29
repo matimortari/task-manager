@@ -1,19 +1,12 @@
 "use client"
 
-import { useTasks } from "@/src/components/context/TaskContext"
 import TaskItem from "@/src/components/TaskItem"
+import { useTaskActions } from "@/src/hooks/useTaskActions"
 
 export default function Overdue() {
-	const { tasks } = useTasks()
+	const { filterTasks, handleEditTask, handleDeleteTask } = useTaskActions()
 
-	// Get the current date
-	const currentDate = new Date()
-
-	// Filter tasks that are overdue (i.e., tasks with dueDate before today and not completed)
-	const overdueTasks = tasks.filter((task) => {
-		const dueDate = new Date(task.dueDate)
-		return dueDate < currentDate && !task.completed // Only include overdue tasks that are not completed
-	})
+	const overdueTasks = filterTasks("overdue")
 
 	return (
 		<div className="card flex h-screen flex-col items-center overflow-auto">
@@ -22,7 +15,9 @@ export default function Overdue() {
 				{overdueTasks.length === 0 ? (
 					<p>No overdue tasks</p>
 				) : (
-					overdueTasks.map((task) => <TaskItem key={task.id} task={task} />)
+					overdueTasks.map((task) => (
+						<TaskItem key={task.id} task={task} handleEditTask={handleEditTask} handleDeleteTask={handleDeleteTask} />
+					))
 				)}
 			</div>
 		</div>

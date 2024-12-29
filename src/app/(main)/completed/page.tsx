@@ -1,13 +1,12 @@
 "use client"
 
-import { useTasks } from "@/src/components/context/TaskContext"
 import TaskItem from "@/src/components/TaskItem"
+import { useTaskActions } from "@/src/hooks/useTaskActions"
 
 export default function Completed() {
-	const { tasks } = useTasks()
+	const { filterTasks, handleEditTask, handleDeleteTask } = useTaskActions()
 
-	// Filter the tasks to only show completed ones
-	const completedTasks = tasks.filter((task) => task.completed)
+	const completedTasks = filterTasks("completed")
 
 	return (
 		<div className="card flex h-screen flex-col items-center overflow-auto">
@@ -16,7 +15,9 @@ export default function Completed() {
 				{completedTasks.length === 0 ? (
 					<p>No completed tasks</p>
 				) : (
-					completedTasks.map((task) => <TaskItem key={task.id} task={task} />)
+					completedTasks.map((task) => (
+						<TaskItem key={task.id} task={task} handleEditTask={handleEditTask} handleDeleteTask={handleDeleteTask} />
+					))
 				)}
 			</div>
 		</div>
