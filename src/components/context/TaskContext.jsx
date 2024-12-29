@@ -70,14 +70,13 @@ export const TasksProvider = ({ children }) => {
 
 	// Create a new task
 	const createTask = async (task) => {
-		if (!userId) return // Prevent API call if userId is not available
+		if (!userId) return
 		setLoading(true)
 		try {
 			const res = await fetch("/api/tasks", {
 				method: "POST",
 				body: JSON.stringify({
-					...task,
-					userId // Pass userId in the body as required by your schema
+					...task
 				}),
 				headers: {
 					"Content-Type": "application/json"
@@ -85,10 +84,16 @@ export const TasksProvider = ({ children }) => {
 			})
 
 			const data = await res.json()
-			setTasks([...tasks, data])
-			toast.success("Task created successfully")
+
+			if (res.ok) {
+				setTasks([...tasks, data])
+				toast.success("Task created successfully")
+			} else {
+				toast.error("Error creating task: " + data.error)
+			}
 		} catch (error) {
 			console.log("Error creating task", error)
+			toast.error("An unexpected error occurred")
 		}
 		setLoading(false)
 	}

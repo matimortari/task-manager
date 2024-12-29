@@ -20,6 +20,10 @@ export async function POST(req: NextRequest) {
 
 	const { title, content, dueDate, priority, status } = await req.json()
 
+	if (!title || !content) {
+		return NextResponse.json({ error: "Title and content are required" }, { status: 400 })
+	}
+
 	const task = await db.task.create({
 		data: {
 			title,
@@ -27,9 +31,11 @@ export async function POST(req: NextRequest) {
 			dueDate,
 			priority,
 			status,
+			completed: false,
 			user: { connect: { id: session.user.id } }
 		}
 	})
+
 	if (!task) return NextResponse.json({ error: "Task not created" }, { status: 500 })
 
 	return NextResponse.json(task, { status: 201 })
@@ -42,18 +48,16 @@ export async function PUT(req: NextRequest) {
 
 	const { id, title, content, dueDate, priority, status, completed } = await req.json()
 
-	// Find the task to be updated
 	const existingTask = await db.task.findFirst({ where: { id } })
 	if (!existingTask) return NextResponse.json({ error: "Task not found" }, { status: 404 })
 
-	// Prepare the data to be updated, considering that some fields may not be provided
 	const updateData: any = {}
 	if (title) updateData.title = title
 	if (content) updateData.content = content
 	if (dueDate) updateData.dueDate = dueDate
 	if (priority) updateData.priority = priority
 	if (status) updateData.status = status
-	if (completed !== undefined) updateData.completed = completed // Update completed status if provided
+	if (completed !== undefined) updateData.completed = completed
 
 	const updatedTask = await db.task.update({ where: { id }, data: updateData })
 
