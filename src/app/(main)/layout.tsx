@@ -1,4 +1,5 @@
 import Providers from "@/src/components/context/Providers"
+import { TasksProvider } from "@/src/components/context/TaskContext"
 import Footer from "@/src/components/Footer"
 import { authOptions } from "@/src/lib/auth"
 import "@/src/styles/globals.css"
@@ -25,18 +26,20 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
 		<html lang="en" suppressHydrationWarning>
 			<body className={inter.className}>
 				<Providers session={session}>
-					<Toaster position="top-center" />
-					<Header />
-					<div className="flex min-h-screen flex-col md:flex-row">
-						<div className="w-full md:w-1/12">
-							<Navbar />
+					<TasksProvider>
+						<Toaster position="top-center" />
+						<Header />
+						<div className="flex min-h-screen flex-col md:flex-row">
+							<div className="w-full md:w-1/12">
+								<Navbar />
+							</div>
+							<div className="flex-1">{children}</div>
+							<div className="w-full md:w-3/12">
+								<SideBar />
+							</div>
 						</div>
-						<div className="flex-1">{children}</div>
-						<div className="w-full md:w-3/12">
-							<SideBar />
-						</div>
-					</div>
-					<Footer />
+						<Footer />
+					</TasksProvider>
 				</Providers>
 			</body>
 		</html>
