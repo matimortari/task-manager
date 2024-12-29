@@ -31,7 +31,7 @@ export default function Header() {
 			</div>
 
 			<div className="flex items-center">
-				<button className="btn bg-accent text-sm text-accent-foreground">Create New Task</button>
+				<button className="btn bg-primary text-sm">Create New Task</button>
 			</div>
 
 			<div className="flex items-center gap-2">

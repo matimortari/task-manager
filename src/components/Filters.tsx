@@ -14,7 +14,7 @@ export default function Filters() {
 				<button
 					key={index}
 					className={`btn relative z-10 text-sm transition-all duration-300 ${
-						activeIndex === index ? "scale-105 transform bg-accent" : "text-muted-foreground"
+						activeIndex === index ? "scale-105 transform bg-secondary " : "text-muted-foreground"
 					}`}
 					onClick={() => {
 						setActiveIndex(index)

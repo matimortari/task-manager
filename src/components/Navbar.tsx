@@ -4,22 +4,22 @@ import Link from "next/link"
 export default function Navbar() {
 	const navItems = [
 		{
-			icon: <Icon icon="mdi:grid-large" className="icon size-6 text-primary hover:text-secondary" />,
+			icon: <Icon icon="mdi:grid-large" className="icon size-6 text-primary hover:text-accent" />,
 			title: "All",
 			link: "/"
 		},
 		{
-			icon: <Icon icon="mdi:stopwatch-check-outline" className="icon size-6 text-primary hover:text-secondary" />,
+			icon: <Icon icon="mdi:stopwatch-check-outline" className="icon size-6 text-primary hover:text-accent" />,
 			title: "Completed",
 			link: "/completed"
 		},
 		{
-			icon: <Icon icon="mdi:stopwatch-play-outline" className="icon size-6 text-primary hover:text-secondary" />,
+			icon: <Icon icon="mdi:stopwatch-play-outline" className="icon size-6 text-primary hover:text-accent" />,
 			title: "Pending",
 			link: "/pending"
 		},
 		{
-			icon: <Icon icon="mdi:stopwatch-alert-outline" className="icon size-6 text-primary hover:text-secondary" />,
+			icon: <Icon icon="mdi:stopwatch-alert-outline" className="icon size-6 text-primary hover:text-accent" />,
 			title: "Overdue",
 			link: "/overdue"
 		}

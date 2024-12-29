@@ -7,7 +7,7 @@ import { getTasks } from "../lib/actions"
 
 function StatCard({ label, value }) {
 	return (
-		<div className="flex flex-row border-l-2 border-primary px-1 text-xs">
+		<div className="flex flex-row border-l-2 border-accent px-1 text-xs">
 			<p className="flex flex-col text-muted-foreground">
 				{label}
 				<span className="text-sm font-bold text-foreground">{value}</span>

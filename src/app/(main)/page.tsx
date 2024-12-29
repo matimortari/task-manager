@@ -11,8 +11,8 @@ export default function Home() {
 		<div className="card min-h-screen">
 			<Filters />
 			<div className="my-4 grid grid-cols-3 gap-4">
-				{tasks.map((task: Task, i: number) => (
-					<TaskItem key={i} task={task} />
+				{tasks.map((task) => (
+					<TaskItem key={task.id} task={task} />
 				))}
 			</div>
 		</div>
