@@ -14,7 +14,7 @@ const chartConfig = {
 		color: "#8BCE89"
 	},
 	mobile: {
-		label: "Pending",
+		label: "Active",
 		color: "#EB4E31"
 	}
 } satisfies ChartConfig
@@ -41,7 +41,7 @@ export default function RadialChart() {
 
 	const chartData = [
 		{
-			pending: activeTasks.length,
+			active: activeTasks.length,
 			completed: completedTasks.length
 		}
 	]
@@ -82,7 +82,7 @@ export default function RadialChart() {
 							className="stroke-transparent stroke-2"
 						/>
 						<RadialBar
-							dataKey="pending"
+							dataKey="active"
 							fill="#EB4E31"
 							stackId="a"
 							cornerRadius={5}

@@ -4,6 +4,7 @@ import { useTasks } from "@/src/components/context/TaskContext"
 import Filters from "@/src/components/Filters"
 import Modal from "@/src/components/Modal"
 import TaskItem from "@/src/components/TaskItem"
+import { updateTask } from "@/src/lib/actions"
 import { useState } from "react"
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
 		tasks,
 		toggleAddTaskModal,
 		task,
+		activeTask,
 		handleInput,
 		createTask,
 		modalMode,
@@ -53,6 +55,11 @@ export default function Home() {
 				priority: task.priority,
 				dueDate: task.dueDate,
 				completed: task.completed
+			})
+		} else if (modalMode === "edit") {
+			updateTask({
+				...task,
+				id: activeTask.id // Ensure the task ID is passed for updates
 			})
 		}
 
@@ -105,7 +112,7 @@ export default function Home() {
 						<label htmlFor="completed">Completed</label>
 						<select
 							id="completed"
-							value={task.completed ? "true" : "false"}
+							value={task.completed ? "true" : "false"} // Set string representation
 							onChange={(e) => handleInput("completed")(e)}
 						>
 							<option value="false">No</option>

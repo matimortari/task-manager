@@ -15,8 +15,8 @@ export default function Navbar() {
 		},
 		{
 			icon: <Icon icon="mdi:stopwatch-play-outline" className="icon size-6 text-primary hover:text-accent" />,
-			title: "Pending",
-			link: "/pending"
+			title: "Active",
+			link: "/active"
 		},
 		{
 			icon: <Icon icon="mdi:stopwatch-alert-outline" className="icon size-6 text-primary hover:text-accent" />,

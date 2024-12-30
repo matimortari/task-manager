@@ -56,18 +56,6 @@ export const TasksProvider = ({ children }) => {
 		setLoading(false)
 	}
 
-	// Get a single task
-	const getTask = async (taskId) => {
-		setLoading(true)
-		try {
-			const response = await fetch(`/api/tasks/${taskId}`)
-			setTask(await response.json())
-		} catch (error) {
-			console.log("Error getting task", error)
-		}
-		setLoading(false)
-	}
-
 	// Create a new task
 	const createTask = async (task) => {
 		if (!userId) return
@@ -100,9 +88,8 @@ export const TasksProvider = ({ children }) => {
 
 	// Update a task by ID
 	const updateTask = async (task) => {
-		setLoading(true)
 		try {
-			const res = await fetch("/api/tasks", {
+			const res = await fetch(`/api/tasks/${task.id}`, {
 				method: "PUT",
 				body: JSON.stringify(task),
 				headers: {
@@ -110,13 +97,47 @@ export const TasksProvider = ({ children }) => {
 				}
 			})
 
-			const data = await res.json()
-			const newTasks = tasks.map((tsk) => (tsk.id === data.id ? data : tsk))
+			if (!res.ok) {
+				throw new Error(`Failed to update task: ${res.status}`)
+			}
 
+			const updatedTask = await res.json()
+			setTasks((prev) => prev.map((t) => (t.id === updatedTask.id ? updatedTask : t)))
 			toast.success("Task updated successfully")
-			setTasks(newTasks)
 		} catch (error) {
-			console.log("Error updating task", error)
+			console.error("Error updating task:", error)
+			toast.error("Error updating task")
+		}
+	}
+
+	// Handle task completion toggle
+	const toggleTaskStatus = async (taskId, isCompleted) => {
+		setLoading(true)
+		try {
+			const res = await fetch(`/api/tasks/${taskId}`, {
+				method: "PUT",
+				body: JSON.stringify({
+					completed: isCompleted
+				}),
+				headers: {
+					"Content-Type": "application/json"
+				}
+			})
+
+			if (!res.ok) {
+				throw new Error("Failed to update task status")
+			}
+
+			const updatedTask = await res.json()
+
+			setTasks((prevTasks) =>
+				prevTasks.map((task) => (task.id === updatedTask.id ? { ...task, completed: updatedTask.completed } : task))
+			)
+
+			toast.success("Task status updated successfully")
+		} catch (error) {
+			console.error("Error updating task status:", error)
+			toast.error("Error updating task status")
 		}
 		setLoading(false)
 	}
@@ -139,7 +160,8 @@ export const TasksProvider = ({ children }) => {
 		if (name === "setTask") {
 			setTask(e)
 		} else {
-			setTask({ ...task, [name]: e.target.value })
+			const value = name === "completed" ? e.target.value === "true" : e.target.value
+			setTask({ ...task, [name]: value })
 		}
 	}
 
@@ -158,10 +180,10 @@ export const TasksProvider = ({ children }) => {
 				tasks,
 				loading,
 				task,
-				getTask,
 				createTask,
 				updateTask,
 				deleteTask,
+				toggleTaskStatus,
 				priority,
 				setPriority,
 				handleInput,

@@ -10,20 +10,19 @@ export function useTaskActions() {
 
 	// Handle deleting a task
 	const handleDeleteTask = (taskId: string) => {
-		deleteTask(taskId) // Call the delete function from the context
+		deleteTask(taskId)
 	}
 
-	// Filter tasks by status: pending, completed, or overdue
-	const filterTasks = (status: "pending" | "completed" | "overdue") => {
+	const filterTasks = (status: "active" | "completed" | "overdue") => {
 		const currentDate = new Date()
 
 		switch (status) {
-			case "pending":
-				return tasks.filter((task) => !task.completed && new Date(task.dueDate) >= currentDate)
+			case "active":
+				return tasks.filter((task: Task) => !task.completed && new Date(task.dueDate) >= currentDate)
 			case "completed":
-				return tasks.filter((task) => task.completed)
+				return tasks.filter((task: Task) => task.completed)
 			case "overdue":
-				return tasks.filter((task) => !task.completed && new Date(task.dueDate) < currentDate)
+				return tasks.filter((task: Task) => !task.completed && new Date(task.dueDate) < currentDate)
 			default:
 				return tasks
 		}
