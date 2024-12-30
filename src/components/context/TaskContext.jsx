@@ -42,9 +42,8 @@ export const TasksProvider = ({ children }) => {
 		setTask({})
 	}
 
-	// Get all tasks
 	const getTasks = async () => {
-		if (!userId) return // Prevent API call if userId is not available
+		if (!userId) return
 		setLoading(true)
 		try {
 			const response = await fetch("/api/tasks")
@@ -56,7 +55,6 @@ export const TasksProvider = ({ children }) => {
 		setLoading(false)
 	}
 
-	// Create a new task
 	const createTask = async (task) => {
 		if (!userId) return
 		setLoading(true)
@@ -86,7 +84,6 @@ export const TasksProvider = ({ children }) => {
 		setLoading(false)
 	}
 
-	// Update a task by ID
 	const updateTask = async (task) => {
 		try {
 			const res = await fetch(`/api/tasks/${task.id}`, {
@@ -110,7 +107,6 @@ export const TasksProvider = ({ children }) => {
 		}
 	}
 
-	// Handle task completion toggle
 	const toggleTaskStatus = async (taskId, isCompleted) => {
 		setLoading(true)
 		try {
@@ -142,7 +138,6 @@ export const TasksProvider = ({ children }) => {
 		setLoading(false)
 	}
 
-	// Delete a task by ID
 	const deleteTask = async (taskId) => {
 		setLoading(true)
 		try {
@@ -165,6 +160,11 @@ export const TasksProvider = ({ children }) => {
 		}
 	}
 
+	const filteredTasks = tasks.filter((task) => {
+		if (priority === "all") return true
+		return task.priority === priority
+	})
+
 	const completedTasks = tasks.filter((task) => task.completed)
 	const activeTasks = tasks.filter((task) => !task.completed)
 	const overdueTasks = tasks.filter((task) => !task.completed && new Date(task.dueDate) < new Date())
@@ -179,6 +179,7 @@ export const TasksProvider = ({ children }) => {
 		<TasksContext.Provider
 			value={{
 				tasks,
+				filteredTasks,
 				loading,
 				task,
 				createTask,

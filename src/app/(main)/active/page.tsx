@@ -15,7 +15,7 @@ export default function Active() {
 				{activeTasks.length === 0 ? (
 					<p>No active tasks</p>
 				) : (
-					activeTasks.map((task) => (
+					activeTasks.map((task: Task) => (
 						<TaskItem key={task.id} task={task} handleEditTask={handleEditTask} handleDeleteTask={handleDeleteTask} />
 					))
 				)}
