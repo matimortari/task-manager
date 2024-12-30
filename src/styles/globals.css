@@ -177,6 +177,7 @@ textarea {
 }
 
 .tooltip {
+	z-index: 1;
 	position: absolute;
 	left: 2rem;
 	top: 50%;

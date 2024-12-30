@@ -1,11 +1,55 @@
 import { useTasks } from "@/src/components/context/TaskContext"
+import { createTask, updateTask } from "@/src/lib/actions"
+import { useState } from "react"
 
 export function useTaskActions() {
-	const { tasks, toggleEditTaskModal, deleteTask } = useTasks()
+	const { tasks, toggleAddTaskModal, toggleEditTaskModal, deleteTask, task, modalMode, closeModal, activeTask } =
+		useTasks()
+	const [isModalOpen, setIsModalOpen] = useState(false)
+
+	// Handle opening the modal for adding a task
+	const handleAddTask = () => {
+		toggleAddTaskModal()
+		setIsModalOpen(true)
+	}
 
 	// Handle opening the modal for editing a task
 	const handleEditTask = (task) => {
-		toggleEditTaskModal(task) // Set modalMode to "edit" and pass the task to edit
+		toggleEditTaskModal(task)
+		setIsModalOpen(true)
+	}
+
+	// Handle closing the modal
+	const handleCloseModal = () => {
+		setIsModalOpen(false)
+		closeModal()
+	}
+
+	// Handle form submission for adding or updating a task
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
+
+		if (modalMode === "add") {
+			createTask({
+				title: task.title,
+				content: task.description,
+				priority: task.priority,
+				dueDate: task.dueDate,
+				completed: task.completed,
+				id: "",
+				userId: "",
+				status: "",
+				createdAt: new Date(),
+				updatedAt: new Date()
+			})
+		} else if (modalMode === "edit") {
+			updateTask({
+				...task,
+				id: activeTask.id
+			})
+		}
+
+		handleCloseModal() // Close the modal after submission
 	}
 
 	// Handle deleting a task
@@ -13,16 +57,17 @@ export function useTaskActions() {
 		deleteTask(taskId)
 	}
 
+	// Handle filtering tasks based on their status
 	const filterTasks = (status: "active" | "completed" | "overdue") => {
 		const currentDate = new Date()
 
 		switch (status) {
 			case "active":
-				return tasks.filter((task: Task) => !task.completed && new Date(task.dueDate) >= currentDate)
+				return tasks.filter((task) => !task.completed && new Date(task.dueDate) >= currentDate)
 			case "completed":
-				return tasks.filter((task: Task) => task.completed)
+				return tasks.filter((task) => task.completed)
 			case "overdue":
-				return tasks.filter((task: Task) => !task.completed && new Date(task.dueDate) < currentDate)
+				return tasks.filter((task) => !task.completed && new Date(task.dueDate) < currentDate)
 			default:
 				return tasks
 		}
@@ -30,8 +75,12 @@ export function useTaskActions() {
 
 	return {
 		tasks,
-		filterTasks,
+		handleAddTask,
 		handleEditTask,
-		handleDeleteTask
+		handleSubmit,
+		handleDeleteTask,
+		handleCloseModal,
+		filterTasks,
+		isModalOpen
 	}
 }
