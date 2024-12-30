@@ -1,7 +1,7 @@
 "use client"
 
+import { formatDate } from "@/src/lib/utils"
 import { Icon } from "@iconify/react"
-import { formatDate } from "../lib/utils"
 import { useTasks } from "./context/TaskContext"
 
 const TaskPriorityLabels = {
@@ -18,7 +18,7 @@ export default function TaskItem({ task, handleEditTask, handleDeleteTask }) {
 	}
 
 	return (
-		<div className="relative flex h-auto flex-col gap-6 rounded-2xl bg-background p-4">
+		<div className="relative flex size-64 w-full flex-col gap-6 rounded-2xl bg-background p-4">
 			<div className="flex flex-row items-center justify-between gap-2">
 				<h3 className="truncate text-lg font-bold">{task.title}</h3>
 			</div>

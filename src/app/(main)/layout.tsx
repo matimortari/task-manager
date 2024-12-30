@@ -1,6 +1,9 @@
 import Providers from "@/src/components/context/Providers"
 import { TasksProvider } from "@/src/components/context/TaskContext"
 import Footer from "@/src/components/Footer"
+import Header from "@/src/components/Header"
+import Navbar from "@/src/components/Navbar"
+import SideBar from "@/src/components/Sidebar"
 import { authOptions } from "@/src/lib/auth"
 import "@/src/styles/globals.css"
 import type { Metadata } from "next"
@@ -8,9 +11,6 @@ import { getServerSession } from "next-auth"
 import { Inter } from "next/font/google"
 import { ReactNode } from "react"
 import { Toaster } from "react-hot-toast"
-import Header from "../../components/Header"
-import Navbar from "../../components/Navbar"
-import SideBar from "../../components/Sidebar"
 
 const inter = Inter({ subsets: ["latin"] })
 

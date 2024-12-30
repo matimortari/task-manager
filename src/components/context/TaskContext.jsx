@@ -167,6 +167,7 @@ export const TasksProvider = ({ children }) => {
 
 	const completedTasks = tasks.filter((task) => task.completed)
 	const activeTasks = tasks.filter((task) => !task.completed)
+	const overdueTasks = tasks.filter((task) => !task.completed && new Date(task.dueDate) < new Date())
 
 	useEffect(() => {
 		if (userId) {
@@ -197,6 +198,7 @@ export const TasksProvider = ({ children }) => {
 				toggleProfileModal,
 				activeTasks,
 				completedTasks,
+				overdueTasks,
 				profileModal
 			}}
 		>

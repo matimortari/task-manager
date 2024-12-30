@@ -17,7 +17,7 @@ function StatCard({ label, value }) {
 
 export default function Profile() {
 	const { data: session, status } = useSession()
-	const { tasks, activeTasks, completedTasks } = useTasks()
+	const { tasks, activeTasks, completedTasks, overdueTasks } = useTasks()
 
 	if (status !== "authenticated") {
 		return null
@@ -41,9 +41,9 @@ export default function Profile() {
 			)}
 
 			<div className="grid grid-cols-2 gap-4 text-xs">
-				<StatCard label="Active" value={activeTasks.length} />
-				<StatCard label="Open" value={tasks.length - completedTasks.length} />
 				<StatCard label="Completed" value={completedTasks.length} />
+				<StatCard label="Active" value={activeTasks.length} />
+				<StatCard label="Overdue" value={overdueTasks.length} />
 				<StatCard label="Total" value={tasks.length} />
 			</div>
 		</div>
