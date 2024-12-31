@@ -1,9 +1,9 @@
-// Wrapper component for the main providers used in the application
-// - SessionProvider: Manages user authentication sessions using NextAuth.js
-// - QueryClientProvider: Sets up React Query for data fetching and caching
-// - ReactQueryDevtools: Enables React Query debugging tools in development
-// - ThemeProvider: Adds support for light/dark theme selection using next-themes
-// - Analytics: Provides Vercel analytics for tracking user interactions
+/* Wrapper component for the main providers used in the application
+- SessionProvider: Manages user authentication sessions using NextAuth.js
+- QueryClientProvider: Sets up React Query for data fetching and caching
+- ReactQueryDevtools: Enables React Query debugging tools in development
+- ThemeProvider: Adds support for light/dark theme selection using next-themes
+- Analytics: Provides Vercel analytics for tracking user interactions */
 
 "use client"
 
