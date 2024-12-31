@@ -19,10 +19,11 @@ export default function Header() {
 	}
 
 	return (
-		<div className="flex w-full items-center justify-between px-4 py-2">
-			<div className="flex h-12 items-center justify-center gap-8">
-				<Image src="/logo.png" alt="Logo" width={25} height={25} />
-				<div className="ml-16">
+		<div className="relative flex w-full flex-col items-center justify-between px-4 py-2 sm:flex-row">
+			<Image src="/logo.png" alt="Logo" width={50} height={50} className="absolute left-4 top-4" />
+
+			<div className="flex w-full flex-col items-center justify-between gap-8 sm:flex-row sm:gap-8 md:ml-24">
+				<div className="mt-2 w-full text-center sm:w-auto sm:text-left">
 					<h1 className="text-base font-semibold">👋 Hello, {session ? session.user.name : "Guest"}</h1>
 					<span className="text-sm">
 						{session ? (
@@ -34,32 +35,31 @@ export default function Header() {
 						)}
 					</span>
 				</div>
-			</div>
 
-			<div className="flex items-center">
-				{/* Button to open the dialog */}
-				<button onClick={() => setIsDialogOpen(true)} className="btn bg-primary text-sm">
-					Add New Task
-				</button>
-			</div>
-
-			<div className="flex items-center gap-2">
-				<ThemeSwitch />
-				{session ? (
-					<button
-						onClick={() => signOut()}
-						className="flex size-10 items-center justify-center rounded-full border hover:border-muted"
-					>
-						<Icon icon="mdi:logout" className="size-5" />
+				<div className="mt-2 flex w-full justify-center sm:mt-0 sm:w-auto sm:justify-end">
+					<button onClick={() => setIsDialogOpen(true)} className="btn bg-primary text-sm">
+						Add New Task
 					</button>
-				) : (
-					<Link
-						href="/login"
-						className="flex size-10 items-center justify-center rounded-full border hover:border-muted"
-					>
-						<Icon icon="mdi:login" className="size-5" />
-					</Link>
-				)}
+				</div>
+
+				<div className="mt-2 flex items-center gap-2 sm:mt-0">
+					<ThemeSwitch />
+					{session ? (
+						<button
+							onClick={() => signOut()}
+							className="flex size-10 items-center justify-center rounded-full border hover:border-muted"
+						>
+							<Icon icon="mdi:logout" className="size-5" />
+						</button>
+					) : (
+						<Link
+							href="/login"
+							className="flex size-10 items-center justify-center rounded-full border hover:border-muted"
+						>
+							<Icon icon="mdi:login" className="size-5" />
+						</Link>
+					)}
+				</div>
 			</div>
 
 			<AddTaskDialog isOpen={isDialogOpen} onClose={handleDialogClose} />
