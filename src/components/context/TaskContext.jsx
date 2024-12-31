@@ -45,9 +45,14 @@ export const TasksProvider = ({ children }) => {
 	// Update a task
 	const updateTask = async (task) => {
 		try {
-			const res = await fetch("/api/tasks/", {
+			const res = await fetch(`/api/tasks?id=${task.id}`, {
 				method: "PUT",
-				body: JSON.stringify(task),
+				body: JSON.stringify({
+					title: task.title,
+					content: task.content,
+					priority: task.priority,
+					completed: task.completed
+				}),
 				headers: { "Content-Type": "application/json" }
 			})
 			if (!res.ok) return toast.error(`Failed to update task: ${res.status}`)
@@ -63,17 +68,19 @@ export const TasksProvider = ({ children }) => {
 	// Toggle task status
 	const toggleTaskStatus = async (taskId, isCompleted) => {
 		try {
-			const res = await fetch(`/api/tasks/${taskId}`, {
+			const res = await fetch(`/api/tasks?id=${taskId}`, {
 				method: "PUT",
 				body: JSON.stringify({ completed: isCompleted }),
 				headers: { "Content-Type": "application/json" }
 			})
-			if (!res.ok) return toast.error("Failed to update task status")
+
+			if (!res.ok) {
+				return toast.error(`Failed to update task status: ${res.status}`)
+			}
 
 			const updatedTask = await res.json()
-			setTasks((prev) =>
-				prev.map((task) => (task.id === updatedTask.id ? { ...task, completed: updatedTask.completed } : task))
-			)
+
+			setTasks((prev) => prev.map((task) => (task.id === updatedTask.id ? updatedTask : task)))
 			toast.success("Task status updated successfully")
 		} catch {
 			toast.error("Error updating task status")

@@ -4,7 +4,7 @@ import TaskItem from "@/src/components/TaskItem"
 import { useTaskActions } from "@/src/hooks/useTaskActions"
 
 export default function Completed() {
-	const { filterTasks, handleEditTask, handleDeleteTask } = useTaskActions()
+	const { filterTasks } = useTaskActions()
 
 	const completedTasks = filterTasks("completed")
 
@@ -16,9 +16,7 @@ export default function Completed() {
 				{completedTasks.length === 0 ? (
 					<p>No completed tasks</p>
 				) : (
-					completedTasks.map((task: Task) => (
-						<TaskItem key={task.id} task={task} handleEditTask={handleEditTask} handleDeleteTask={handleDeleteTask} />
-					))
+					completedTasks.map((task: Task) => <TaskItem key={task.id} task={task} />)
 				)}
 			</div>
 		</div>

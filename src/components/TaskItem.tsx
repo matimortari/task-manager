@@ -1,8 +1,28 @@
-"use client"
-
 import { Icon } from "@iconify/react"
+import { useState } from "react"
+import { formatDate } from "../lib/utils"
+import { useTasks } from "./context/TaskContext"
+import EditTaskDialog from "./dialogs/EditTaskDialog"
 
-export default function TaskItem({ task, handleDeleteTask }: { task: any; handleDeleteTask: (id: string) => void }) {
+export default function TaskItem({ task }) {
+	const [isDialogOpen, setIsDialogOpen] = useState(false)
+
+	const { toggleTaskStatus, deleteTask } = useTasks()
+
+	const handleDialogClose = () => {
+		setIsDialogOpen(false)
+	}
+
+	const handleToggleCompletion = async () => {
+		await toggleTaskStatus(task.id, !task.completed)
+	}
+
+	const handleDelete = async () => {
+		if (window.confirm("Are you sure you want to delete this task?")) {
+			await deleteTask(task.id)
+		}
+	}
+
 	return (
 		<div className="relative flex size-64 w-full flex-col gap-6 rounded-2xl bg-background p-4">
 			<div className="flex flex-row items-center justify-between gap-2">
@@ -13,7 +33,7 @@ export default function TaskItem({ task, handleDeleteTask }: { task: any; handle
 
 			<div className="flex flex-col gap-1 text-xs">
 				<p>
-					Due Date: <span className="font-semibold text-muted-foreground">{task.dueDate}</span>
+					Due Date: <span className="font-semibold text-muted-foreground">{formatDate(task.dueDate)}</span>
 				</p>
 				<p>
 					Status:
@@ -27,20 +47,24 @@ export default function TaskItem({ task, handleDeleteTask }: { task: any; handle
 			</div>
 
 			<div className="absolute bottom-3 right-3 flex gap-2">
-				<button onClick={undefined}>
+				<button onClick={handleToggleCompletion}>
 					{task.completed ? (
 						<Icon icon="mdi:play" className="size-5 text-foreground" />
 					) : (
 						<Icon icon="mdi:check" className="size-5 text-foreground" />
 					)}
 				</button>
-				<button onClick={undefined}>
+
+				<button onClick={() => setIsDialogOpen(true)}>
 					<Icon icon="mdi:edit" className="size-5 text-primary" />
 				</button>
-				<button onClick={() => handleDeleteTask(task.id)}>
+
+				<button onClick={handleDelete}>
 					<Icon icon="mdi:delete" className="size-5 text-destructive" />
 				</button>
 			</div>
+
+			<EditTaskDialog isOpen={isDialogOpen} onClose={handleDialogClose} task={task} />
 		</div>
 	)
 }

@@ -4,7 +4,7 @@ import TaskItem from "@/src/components/TaskItem"
 import { useTaskActions } from "@/src/hooks/useTaskActions"
 
 export default function Overdue() {
-	const { filterTasks, handleEditTask, handleDeleteTask } = useTaskActions()
+	const { filterTasks } = useTaskActions()
 
 	const overdueTasks = filterTasks("overdue")
 
@@ -16,9 +16,7 @@ export default function Overdue() {
 				{overdueTasks.length === 0 ? (
 					<p>No overdue tasks</p>
 				) : (
-					overdueTasks.map((task: Task) => (
-						<TaskItem key={task.id} task={task} handleEditTask={handleEditTask} handleDeleteTask={handleDeleteTask} />
-					))
+					overdueTasks.map((task: Task) => <TaskItem key={task.id} task={task} />)
 				)}
 			</div>
 		</div>

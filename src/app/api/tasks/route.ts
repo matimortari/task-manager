@@ -44,18 +44,28 @@ export async function PUT(req: NextRequest) {
 	const { error, session, response } = await getSessionOrUnauthorized()
 	if (error) return response
 
-	const { id, title, content, dueDate, priority, status, completed } = await req.json()
+	const taskId = req.nextUrl.searchParams.get("id")
+	if (!taskId) {
+		return NextResponse.json({ error: "Task ID is required" }, { status: 400 })
+	}
 
-	const existingTask = await db.task.findFirst({ where: { id } })
+	const { title, content, dueDate, priority, status, completed } = await req.json()
+
+	const existingTask = await db.task.findFirst({ where: { id: taskId } })
 	if (!existingTask || existingTask.userId !== session.user.id) {
-		{
-			return NextResponse.json({ error: "Task not found" }, { status: 404 })
-		}
+		return NextResponse.json({ error: "Task not found or not authorized" }, { status: 404 })
 	}
 
 	const updatedTask = await db.task.update({
-		where: { id },
-		data: { title, content, dueDate, priority, status, completed }
+		where: { id: taskId },
+		data: {
+			title,
+			content,
+			dueDate,
+			priority,
+			status,
+			completed
+		}
 	})
 
 	return NextResponse.json(updatedTask, { status: 200 })

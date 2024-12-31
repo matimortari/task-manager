@@ -4,12 +4,19 @@ import { Icon } from "@iconify/react"
 import { signOut, useSession } from "next-auth/react"
 import Image from "next/image"
 import Link from "next/link"
+import { useState } from "react"
 import { useTasks } from "./context/TaskContext"
+import AddTaskDialog from "./dialogs/AddTaskDialog"
 import ThemeSwitch from "./ThemeSwitch"
 
 export default function Header() {
 	const { data: session } = useSession()
 	const { activeTasks } = useTasks()
+	const [isDialogOpen, setIsDialogOpen] = useState(false)
+
+	const handleDialogClose = () => {
+		setIsDialogOpen(false)
+	}
 
 	return (
 		<div className="flex w-full items-center justify-between px-4 py-2">
@@ -30,7 +37,8 @@ export default function Header() {
 			</div>
 
 			<div className="flex items-center">
-				<button onClick={undefined} className="btn bg-primary text-sm">
+				{/* Button to open the dialog */}
+				<button onClick={() => setIsDialogOpen(true)} className="btn bg-primary text-sm">
 					Add New Task
 				</button>
 			</div>
@@ -53,6 +61,8 @@ export default function Header() {
 					</Link>
 				)}
 			</div>
+
+			<AddTaskDialog isOpen={isDialogOpen} onClose={handleDialogClose} />
 		</div>
 	)
 }

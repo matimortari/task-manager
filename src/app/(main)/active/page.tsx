@@ -4,7 +4,7 @@ import TaskItem from "@/src/components/TaskItem"
 import { useTaskActions } from "@/src/hooks/useTaskActions"
 
 export default function Active() {
-	const { filterTasks, handleEditTask, handleDeleteTask } = useTaskActions()
+	const { filterTasks } = useTaskActions()
 
 	const activeTasks = filterTasks("active")
 
@@ -16,9 +16,7 @@ export default function Active() {
 				{activeTasks.length === 0 ? (
 					<p>No active tasks</p>
 				) : (
-					activeTasks.map((task: Task) => (
-						<TaskItem key={task.id} task={task} handleEditTask={handleEditTask} handleDeleteTask={handleDeleteTask} />
-					))
+					activeTasks.map((task: Task) => <TaskItem key={task.id} task={task} />)
 				)}
 			</div>
 		</div>
