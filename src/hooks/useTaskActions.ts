@@ -1,65 +1,7 @@
 import { useTasks } from "@/src/components/context/TaskContext"
-import { useState } from "react"
 
 export function useTaskActions() {
-	const {
-		tasks,
-		toggleAddTaskModal,
-		createTask,
-		updateTask,
-		toggleEditTaskModal,
-		deleteTask,
-		task,
-		modalMode,
-		closeModal,
-		activeTask
-	} = useTasks()
-	const [isModalOpen, setIsModalOpen] = useState(false)
-
-	// Handle opening the modal for adding a task
-	const handleAddTask = () => {
-		toggleAddTaskModal()
-		setIsModalOpen(true)
-	}
-
-	// Handle opening the modal for editing a task
-	const handleEditTask = (task: Task) => {
-		toggleEditTaskModal(task)
-		setIsModalOpen(true)
-	}
-
-	// Handle deleting a task
-	const handleDeleteTask = (taskId: string) => {
-		deleteTask(taskId)
-	}
-
-	// Handle closing the modal
-	const handleCloseModal = () => {
-		setIsModalOpen(false)
-		closeModal()
-	}
-
-	// Handle form submission for adding or updating a task
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
-
-		if (modalMode === "add") {
-			createTask({
-				title: task.title,
-				content: task.description,
-				priority: task.priority,
-				dueDate: task.dueDate,
-				completed: task.completed
-			})
-		} else if (modalMode === "edit") {
-			updateTask({
-				...task,
-				id: activeTask.id
-			})
-		}
-
-		handleCloseModal() // Close the modal after submission
-	}
+	const { tasks } = useTasks()
 
 	// Handle filtering tasks based on their status
 	const filterTasks = (status: "active" | "completed" | "overdue") => {
@@ -79,12 +21,6 @@ export function useTaskActions() {
 
 	return {
 		tasks,
-		handleAddTask,
-		handleEditTask,
-		handleSubmit,
-		handleDeleteTask,
-		handleCloseModal,
-		filterTasks,
-		isModalOpen
+		filterTasks
 	}
 }

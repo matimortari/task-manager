@@ -8,149 +8,92 @@ const TasksContext = createContext()
 
 export const TasksProvider = ({ children }) => {
 	const { data: session } = useSession()
-	const userId = session?.user?.id
 	const [tasks, setTasks] = useState([])
-	const [loading, setLoading] = useState(false)
 	const [task, setTask] = useState({})
 	const [isEditing, setIsEditing] = useState(false)
 	const [priority, setPriority] = useState("all")
-	const [activeTask, setActiveTask] = useState(null)
-	const [modalMode, setModalMode] = useState("")
-	const [profileModal, setProfileModal] = useState(false)
 
-	const toggleAddTaskModal = () => {
-		setModalMode("add")
-		setIsEditing(true)
-		setTask({})
-	}
-
-	const toggleEditTaskModal = (task) => {
-		setModalMode("edit")
-		setIsEditing(true)
-		setActiveTask(task)
-	}
-
-	const toggleProfileModal = () => {
-		setProfileModal(true)
-	}
-
-	const closeModal = () => {
-		setIsEditing(false)
-		setProfileModal(false)
-		setModalMode("")
-		setActiveTask(null)
-		setTask({})
-	}
-
+	// Get all tasks from the server
 	const getTasks = async () => {
-		if (!userId) return
-		setLoading(true)
 		try {
-			const response = await fetch("/api/tasks")
+			const response = await fetch("/api/tasks", { method: "GET" })
 			const data = await response.json()
 			setTasks(data)
 		} catch (error) {
 			console.log("Error getting tasks", error)
 		}
-		setLoading(false)
 	}
 
+	// Create a new task
 	const createTask = async (task) => {
-		if (!userId) return
-		setLoading(true)
 		try {
 			const res = await fetch("/api/tasks", {
 				method: "POST",
-				body: JSON.stringify({
-					...task
-				}),
-				headers: {
-					"Content-Type": "application/json"
-				}
+				body: JSON.stringify(task),
+				headers: { "Content-Type": "application/json" }
 			})
-
 			const data = await res.json()
+			if (!res.ok) return toast.error("Error creating task: " + data.error)
 
-			if (res.ok) {
-				setTasks([...tasks, data])
-				toast.success("Task created successfully")
-			} else {
-				toast.error("Error creating task: " + data.error)
-			}
-		} catch (error) {
-			console.log("Error creating task", error)
+			setTasks([...tasks, data])
+			toast.success("Task created successfully")
+		} catch {
 			toast.error("An unexpected error occurred")
 		}
-		setLoading(false)
 	}
 
+	// Update a task
 	const updateTask = async (task) => {
 		try {
-			const res = await fetch(`/api/tasks/${task.id}`, {
+			const res = await fetch("/api/tasks/", {
 				method: "PUT",
 				body: JSON.stringify(task),
-				headers: {
-					"Content-Type": "application/json"
-				}
+				headers: { "Content-Type": "application/json" }
 			})
-
-			if (!res.ok) {
-				throw new Error(`Failed to update task: ${res.status}`)
-			}
+			if (!res.ok) return toast.error(`Failed to update task: ${res.status}`)
 
 			const updatedTask = await res.json()
 			setTasks((prev) => prev.map((t) => (t.id === updatedTask.id ? updatedTask : t)))
 			toast.success("Task updated successfully")
-		} catch (error) {
-			console.error("Error updating task:", error)
+		} catch {
 			toast.error("Error updating task")
 		}
 	}
 
+	// Toggle task status
 	const toggleTaskStatus = async (taskId, isCompleted) => {
-		setLoading(true)
 		try {
 			const res = await fetch(`/api/tasks/${taskId}`, {
 				method: "PUT",
-				body: JSON.stringify({
-					completed: isCompleted
-				}),
-				headers: {
-					"Content-Type": "application/json"
-				}
+				body: JSON.stringify({ completed: isCompleted }),
+				headers: { "Content-Type": "application/json" }
 			})
-
-			if (!res.ok) {
-				throw new Error("Failed to update task status")
-			}
+			if (!res.ok) return toast.error("Failed to update task status")
 
 			const updatedTask = await res.json()
-
-			setTasks((prevTasks) =>
-				prevTasks.map((task) => (task.id === updatedTask.id ? { ...task, completed: updatedTask.completed } : task))
+			setTasks((prev) =>
+				prev.map((task) => (task.id === updatedTask.id ? { ...task, completed: updatedTask.completed } : task))
 			)
-
 			toast.success("Task status updated successfully")
-		} catch (error) {
-			console.error("Error updating task status:", error)
+		} catch {
 			toast.error("Error updating task status")
 		}
-		setLoading(false)
 	}
 
+	// Delete a task
 	const deleteTask = async (taskId) => {
-		setLoading(true)
 		try {
-			await fetch(`/api/tasks?id=${taskId}`, { method: "DELETE" })
+			const res = await fetch(`/api/tasks?id=${taskId}`, { method: "DELETE" })
+			if (!res.ok) return toast.error("Error deleting task")
 
-			const newTasks = tasks.filter((tsk) => tsk.id !== taskId)
-			setTasks(newTasks)
-		} catch (error) {
-			console.log("Error deleting task", error)
+			setTasks((prev) => prev.filter((tsk) => tsk.id !== taskId))
+			toast.success("Task deleted successfully")
+		} catch {
+			toast.error("Error deleting task")
 		}
-		setLoading(false)
 	}
 
+	// Handle input change for form fields
 	const handleInput = (name) => (e) => {
 		if (name === "setTask") {
 			setTask(e)
@@ -160,6 +103,7 @@ export const TasksProvider = ({ children }) => {
 		}
 	}
 
+	// Filter tasks based on priority
 	const filteredTasks = tasks.filter((task) => {
 		if (priority === "all") return true
 		return task.priority === priority
@@ -170,17 +114,16 @@ export const TasksProvider = ({ children }) => {
 	const overdueTasks = tasks.filter((task) => !task.completed && new Date(task.dueDate) < new Date())
 
 	useEffect(() => {
-		if (userId) {
+		if (session?.user?.id) {
 			getTasks()
 		}
-	}, [userId])
+	}, [session?.user?.id])
 
 	return (
 		<TasksContext.Provider
 			value={{
 				tasks,
 				filteredTasks,
-				loading,
 				task,
 				createTask,
 				updateTask,
@@ -191,16 +134,9 @@ export const TasksProvider = ({ children }) => {
 				handleInput,
 				isEditing,
 				setIsEditing,
-				toggleAddTaskModal,
-				toggleEditTaskModal,
-				activeTask,
-				closeModal,
-				modalMode,
-				toggleProfileModal,
 				activeTasks,
 				completedTasks,
-				overdueTasks,
-				profileModal
+				overdueTasks
 			}}
 		>
 			{children}

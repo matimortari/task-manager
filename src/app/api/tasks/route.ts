@@ -36,35 +36,27 @@ export async function POST(req: NextRequest) {
 		}
 	})
 
-	if (!task) return NextResponse.json({ error: "Task not created" }, { status: 500 })
-
 	return NextResponse.json(task, { status: 201 })
 }
 
 // PUT method for updating a user task
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest) {
 	const { error, session, response } = await getSessionOrUnauthorized()
 	if (error) return response
 
-	const id = params.id
-	const body = await req.json()
-	const { title, content, dueDate, priority, status, completed } = body
+	const { id, title, content, dueDate, priority, status, completed } = await req.json()
 
-	// Check if task exists
-	const existingTask = await db.task.findFirst({ where: { id, userId: session.user.id } })
-	if (!existingTask) return NextResponse.json({ error: "Task not found" }, { status: 404 })
+	const existingTask = await db.task.findFirst({ where: { id } })
+	if (!existingTask || existingTask.userId !== session.user.id) {
+		{
+			return NextResponse.json({ error: "Task not found" }, { status: 404 })
+		}
+	}
 
-	// Prepare update data
-	const updateData: any = {}
-	if (title) updateData.title = title
-	if (content) updateData.content = content
-	if (dueDate) updateData.dueDate = dueDate
-	if (priority) updateData.priority = priority
-	if (status) updateData.status = status
-	if (completed !== undefined) updateData.completed = completed
-
-	// Update task
-	const updatedTask = await db.task.update({ where: { id }, data: updateData })
+	const updatedTask = await db.task.update({
+		where: { id },
+		data: { title, content, dueDate, priority, status, completed }
+	})
 
 	return NextResponse.json(updatedTask, { status: 200 })
 }

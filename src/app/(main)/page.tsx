@@ -5,7 +5,7 @@ import Filters from "@/src/components/Filters"
 import TaskItem from "@/src/components/TaskItem"
 
 export default function Home() {
-	const { filteredTasks, handleAddTask, handleEditTask, handleDeleteTask } = useTasks()
+	const { filteredTasks, handleDeleteTask } = useTasks()
 
 	return (
 		<div className="card min-h-screen">
@@ -13,12 +13,12 @@ export default function Home() {
 
 			<div className="my-4 grid grid-cols-3 gap-4">
 				{filteredTasks.map((task: Task) => (
-					<TaskItem key={task.id} task={task} handleEditTask={handleEditTask} handleDeleteTask={handleDeleteTask} />
+					<TaskItem key={task.id} task={task} handleDeleteTask={handleDeleteTask} />
 				))}
 
 				<button
 					className="size-64 w-full rounded-2xl border-2 border-dashed py-2 text-lg font-medium text-muted-foreground transition duration-200 ease-in-out hover:bg-secondary"
-					onClick={handleAddTask}
+					onClick={undefined}
 				>
 					Add New Task
 				</button>
