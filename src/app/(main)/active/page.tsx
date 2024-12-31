@@ -9,8 +9,9 @@ export default function Active() {
 	const activeTasks = filterTasks("active")
 
 	return (
-		<div className="card flex h-screen flex-col items-center overflow-auto">
+		<div className="card min-h-screen">
 			<h2 className="mb-4 text-2xl font-bold">Active Tasks</h2>
+
 			<div className="my-4 grid grid-cols-3 gap-4">
 				{activeTasks.length === 0 ? (
 					<p>No active tasks</p>

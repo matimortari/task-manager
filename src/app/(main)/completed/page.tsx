@@ -9,13 +9,14 @@ export default function Completed() {
 	const completedTasks = filterTasks("completed")
 
 	return (
-		<div className="card flex h-screen flex-col items-center overflow-auto">
+		<div className="card min-h-screen">
 			<h2 className="mb-4 text-2xl font-bold">Completed Tasks</h2>
+
 			<div className="my-4 grid grid-cols-3 gap-4">
 				{completedTasks.length === 0 ? (
 					<p>No completed tasks</p>
 				) : (
-					completedTasks.map((task) => (
+					completedTasks.map((task: Task) => (
 						<TaskItem key={task.id} task={task} handleEditTask={handleEditTask} handleDeleteTask={handleDeleteTask} />
 					))
 				)}

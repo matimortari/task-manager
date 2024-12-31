@@ -12,7 +12,7 @@ export default function Home() {
 			<Filters />
 
 			<div className="my-4 grid grid-cols-3 gap-4">
-				{filteredTasks.map((task) => (
+				{filteredTasks.map((task: Task) => (
 					<TaskItem key={task.id} task={task} handleEditTask={handleEditTask} handleDeleteTask={handleDeleteTask} />
 				))}
 

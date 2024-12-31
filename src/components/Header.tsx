@@ -11,7 +11,7 @@ import ThemeSwitch from "./ThemeSwitch"
 
 export default function Header() {
 	const { data: session } = useSession()
-	const { task, tasks, handleInput, modalMode } = useTasks()
+	const { task, activeTasks, handleInput, modalMode } = useTasks()
 	const { handleAddTask, handleCloseModal, isModalOpen, handleSubmit } = useTaskActions()
 
 	return (
@@ -81,7 +81,7 @@ export default function Header() {
 					<span className="text-sm">
 						{session ? (
 							<h2 className="text-sm">
-								You have <span className="font-bold text-accent">{tasks.length}</span> active tasks.
+								You have <span className="font-bold text-accent">{activeTasks.length}</span> active tasks.
 							</h2>
 						) : (
 							"Please sign in to see your tasks."

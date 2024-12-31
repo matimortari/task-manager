@@ -67,7 +67,7 @@ export function useTaskActions() {
 
 		switch (status) {
 			case "active":
-				return tasks.filter((task: Task) => !task.completed && new Date(task.dueDate) >= currentDate)
+				return tasks.filter((task: Task) => !task.completed)
 			case "completed":
 				return tasks.filter((task: Task) => task.completed)
 			case "overdue":
