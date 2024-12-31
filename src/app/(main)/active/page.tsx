@@ -10,9 +10,9 @@ export default function Active() {
 
 	return (
 		<div className="card min-h-screen">
-			<h2 className="mb-4 text-2xl font-bold">Active Tasks</h2>
+			<h2 className="title">Active Tasks</h2>
 
-			<div className="my-4 grid grid-cols-3 gap-4">
+			<div className="my-4 grid grid-cols-1 gap-2 md:grid-cols-3">
 				{activeTasks.length === 0 ? (
 					<p>No active tasks</p>
 				) : (

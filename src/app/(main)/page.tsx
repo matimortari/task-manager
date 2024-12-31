@@ -16,9 +16,12 @@ export default function Home() {
 
 	return (
 		<div className="card min-h-screen">
-			<Filters />
+			<div className="flex flex-row items-center justify-between gap-2">
+				<h2 className="title hidden md:block">All Tasks</h2>
+				<Filters />
+			</div>
 
-			<div className="my-4 grid grid-cols-3 gap-4">
+			<div className="my-4 grid grid-cols-1 gap-2 md:grid-cols-3">
 				{filteredTasks.map((task: Task) => (
 					<TaskItem key={task.id} task={task} />
 				))}

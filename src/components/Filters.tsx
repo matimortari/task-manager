@@ -4,15 +4,15 @@ import { useTasks } from "@/src/components/context/TaskContext"
 
 export default function Filters() {
 	const { priority, setPriority } = useTasks()
-	const priorities = ["All", "Low", "Medium", "High"]
+	const priorities = ["All", "Low", "Normal", "High"]
 
 	return (
-		<div className="relative grid grid-cols-4 items-center gap-4 rounded-2xl p-2">
+		<div className="relative grid grid-cols-4 items-center gap-2 rounded-2xl">
 			{priorities.map((item, index) => (
 				<button
 					key={index}
-					className={`btn relative z-10 text-sm transition-all duration-300 ${
-						priority === item.toLowerCase() ? "scale-105 transform bg-secondary" : "text-muted-foreground"
+					className={`btn relative text-sm transition-all duration-300 ${
+						priority === item.toLowerCase() ? "scale-105 transform bg-secondary" : "bg-background text-muted-foreground"
 					}`}
 					onClick={() => setPriority(item.toLowerCase())}
 					style={{

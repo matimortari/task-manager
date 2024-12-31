@@ -26,23 +26,22 @@ export default function Navbar() {
 	]
 
 	return (
-		<div className="my-2 flex h-full flex-row items-center justify-between px-12 md:my-6 md:flex-col">
-			<ul className="flex flex-row gap-8 md:flex-col">
+		<div className="my-4 flex h-full flex-row items-center justify-center md:my-12 md:flex-col md:items-center md:justify-start">
+			<ul className="flex flex-row gap-12 md:flex-col md:items-center md:gap-8">
 				{navItems.map((item, index) => (
 					<li className="group relative" key={index}>
 						<Link href={item.link}>
 							{item.icon}
-							<span className="tooltip">{item.title}</span>
+							<span className="tooltip hidden md:block">{item.title}</span>
 						</Link>
 					</li>
 				))}
 			</ul>
 
-			<div className="mt-auto md:mb-36">
-				<button className="flex size-10 items-center justify-center rounded-full border border-destructive text-destructive hover:border-muted">
-					<Icon icon="mdi:remove-bold" className="icon size-6" />
-				</button>
-			</div>
+			{/* <button className="flex size-10 items-center justify-center rounded-full border border-destructive text-destructive hover:border-muted">
+				<Icon icon="mdi:remove-bold" className="icon size-6" />
+			</button> */}
+			{/* </div> */}
 		</div>
 	)
 }
