@@ -37,11 +37,6 @@ export default function Navbar() {
 					</li>
 				))}
 			</ul>
-
-			{/* <button className="flex size-10 items-center justify-center rounded-full border border-destructive text-destructive hover:border-muted">
-				<Icon icon="mdi:remove-bold" className="icon size-6" />
-			</button> */}
-			{/* </div> */}
 		</div>
 	)
 }

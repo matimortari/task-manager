@@ -1,12 +1,15 @@
 "use client"
 
 import TaskItem from "@/src/components/TaskItem"
+import { useAnimations } from "@/src/hooks/useAnimations"
 import { useTaskActions } from "@/src/hooks/useTaskActions"
 
 export default function Completed() {
 	const { filterTasks } = useTaskActions()
 
 	const completedTasks = filterTasks("completed")
+
+	const isFlashing = useAnimations(1000)
 
 	return (
 		<div className="card min-h-screen">
@@ -16,7 +19,7 @@ export default function Completed() {
 				{completedTasks.length === 0 ? (
 					<p>No completed tasks</p>
 				) : (
-					completedTasks.map((task: Task) => <TaskItem key={task.id} task={task} />)
+					completedTasks.map((task: Task) => <TaskItem key={task.id} task={task} isFlashing={isFlashing} />)
 				)}
 			</div>
 		</div>

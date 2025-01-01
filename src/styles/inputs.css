@@ -3,6 +3,7 @@
 }
 
 .slider {
+	background-color: var(--muted);
 	position: absolute;
 	cursor: pointer;
 	top: 0;
@@ -11,7 +12,7 @@
 	bottom: 0;
 	transition: 0.4s;
 	border-radius: 1rem;
-	border-color: var(--muted);
+	border-color: var(--border);
 	border-width: 1px;
 }
 
@@ -42,9 +43,7 @@ input[type="color"] {
 	border-radius: 100%;
 	width: 1.75rem;
 	height: 1.75rem;
-	transition:
-		border-color 0.2s ease,
-		box-shadow 0.2s ease;
+	transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 input[type="color"]:hover {
@@ -68,9 +67,7 @@ input[type="radio"] {
 	border-radius: 100%;
 	width: 1rem;
 	height: 1rem;
-	transition:
-		background-color 0.2s ease,
-		border-color 0.2s ease;
+	transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 input[type="radio"]:checked {
@@ -89,9 +86,7 @@ input[type="checkbox"] {
 	border-radius: 4px;
 	width: 1rem;
 	height: 1rem;
-	transition:
-		background-color 0.2s ease,
-		border-color 0.2s ease;
+	transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 input[type="checkbox"]:checked {

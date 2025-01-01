@@ -1,12 +1,15 @@
 "use client"
 
 import TaskItem from "@/src/components/TaskItem"
+import { useAnimations } from "@/src/hooks/useAnimations"
 import { useTaskActions } from "@/src/hooks/useTaskActions"
 
 export default function Active() {
 	const { filterTasks } = useTaskActions()
 
 	const activeTasks = filterTasks("active")
+
+	const isFlashing = useAnimations(1000)
 
 	return (
 		<div className="card min-h-screen">
@@ -16,7 +19,7 @@ export default function Active() {
 				{activeTasks.length === 0 ? (
 					<p>No active tasks</p>
 				) : (
-					activeTasks.map((task: Task) => <TaskItem key={task.id} task={task} />)
+					activeTasks.map((task: Task) => <TaskItem key={task.id} task={task} isFlashing={isFlashing} />)
 				)}
 			</div>
 		</div>

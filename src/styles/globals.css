@@ -150,9 +150,11 @@ textarea {
 	gap: 0.5rem;
 	border-radius: 5rem;
 	font-weight: 600;
+	transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 .btn:hover {
+	transform: scale(1.05);
 	opacity: 0.8;
 }
 
@@ -193,4 +195,20 @@ textarea {
 
 .group:hover .tooltip {
 	opacity: 1;
+}
+
+/* Keyframe animation for flashing effect */
+@keyframes flash {
+	0% {
+		opacity: 0;
+		transform: scale(0.9);
+	}
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+.animate-flash {
+	animation: flash 1s ease-out;
 }
