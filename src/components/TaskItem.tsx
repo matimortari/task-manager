@@ -66,7 +66,7 @@ export default function TaskItem({ task, isFlashing }) {
 				</button>
 
 				<button onClick={handleDelete}>
-					<Icon icon="mdi:delete" className="icon size-5 text-destructive hover:text-muted" />
+					<Icon icon="mdi:delete" className="icon size-5 text-danger hover:text-muted" />
 				</button>
 			</div>
 

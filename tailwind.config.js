@@ -26,14 +26,12 @@ const config = {
 					DEFAULT: "var(--accent)",
 					foreground: "var(--accent-foreground)"
 				},
-				destructive: {
-					DEFAULT: "var(--destructive)",
-					foreground: "var(--destructive-foreground)"
-				},
 				muted: {
 					DEFAULT: "var(--muted)",
 					foreground: "var(--muted-foreground)"
 				},
+				danger: "var(--danger)",
+				success: "var(--success)",
 				border: "var(--border)",
 				input: "var(--input)",
 				ring: "var(--ring)",

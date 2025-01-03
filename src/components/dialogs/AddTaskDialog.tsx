@@ -7,7 +7,6 @@ import { useEffect, useState } from "react"
 export default function AddTaskDialog({ isOpen, onClose }) {
 	const { dialogRef, error, setError } = useDialog(onClose)
 	const { createTask } = useTasks()
-
 	const [title, setTitle] = useState("")
 	const [content, setContent] = useState("")
 	const [dueDate, setDueDate] = useState("")
@@ -61,7 +60,7 @@ export default function AddTaskDialog({ isOpen, onClose }) {
 			<div ref={dialogRef} className="popover">
 				<h3>Add New Task</h3>
 
-				{error && <h4 className="text-destructive">{error}</h4>}
+				{error && <h4 className="text-danger">{error}</h4>}
 
 				<form onSubmit={handleSubmit} className="flex flex-col gap-6 p-4">
 					<div className="flex items-center gap-2">
@@ -129,7 +128,7 @@ export default function AddTaskDialog({ isOpen, onClose }) {
 						<button type="submit" className="btn bg-primary">
 							Submit
 						</button>
-						<button type="button" onClick={onClose} className="btn bg-destructive">
+						<button type="button" onClick={onClose} className="btn bg-danger">
 							Close
 						</button>
 					</div>

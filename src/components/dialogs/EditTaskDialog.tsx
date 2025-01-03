@@ -57,7 +57,7 @@ export default function EditTaskDialog({ isOpen, onClose, task }) {
 			<div ref={dialogRef} className="popover">
 				<h3>Edit Task</h3>
 
-				{error && <h4 className="text-destructive">{error}</h4>}
+				{error && <h4 className="text-danger">{error}</h4>}
 
 				<form onSubmit={handleSubmit} className="flex flex-col gap-6 p-4">
 					<div className="flex items-center gap-2">
@@ -125,7 +125,7 @@ export default function EditTaskDialog({ isOpen, onClose, task }) {
 						<button type="submit" className="btn bg-primary">
 							Submit
 						</button>
-						<button type="button" onClick={onClose} className="btn bg-destructive">
+						<button type="button" onClick={onClose} className="btn bg-danger">
 							Close
 						</button>
 					</div>

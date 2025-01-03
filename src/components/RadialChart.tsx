@@ -67,14 +67,14 @@ export default function RadialChart() {
 						</PolarRadiusAxis>
 						<RadialBar
 							dataKey="completed"
-							fill="#8BCE89"
+							fill="#556272"
 							stackId="a"
 							cornerRadius={5}
 							className="stroke-transparent stroke-2"
 						/>
 						<RadialBar
 							dataKey="active"
-							fill="#EB4E31"
+							fill="#8Bce89"
 							stackId="a"
 							cornerRadius={5}
 							className="stroke-transparent stroke-2"
