@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Base layer for custom theme variables */
 @layer base {
 	:root {
 		--background: #f7f3f7;
@@ -76,40 +77,46 @@
 	}
 }
 
-.bg-primary {
-	background-color: var(--primary);
-	color: var(--primary-foreground);
+/* Components layer for matching background and foreground colors */
+@layer components {
+	.bg-primary {
+		background-color: var(--primary);
+		color: var(--primary-foreground);
+	}
+
+	.bg-secondary {
+		background-color: var(--secondary);
+		color: var(--secondary-foreground);
+	}
+
+	.bg-muted {
+		background-color: var(--muted);
+		color: var(--muted-foreground);
+	}
+
+	.bg-accent {
+		background-color: var(--accent);
+		color: var(--accent-foreground);
+	}
+
+	.bg-destructive {
+		background-color: var(--destructive);
+		color: var(--destructive-foreground);
+	}
 }
 
-.bg-secondary {
-	background-color: var(--secondary);
-	color: var(--secondary-foreground);
-}
-
-.bg-muted {
-	background-color: var(--muted);
-	color: var(--muted-foreground);
-}
-
-.bg-accent {
-	background-color: var(--accent);
-	color: var(--accent-foreground);
-}
-
-.bg-destructive {
-	background-color: var(--destructive);
-	color: var(--destructive-foreground);
-}
-
+/* General body styling */
 body {
 	background-color: var(--background);
 	color: var(--foreground);
 }
 
+/* Styling for horizontal rules */
 hr {
 	border-color: var(--border);
 }
 
+/* General styling for form elements */
 input,
 select,
 textarea {
@@ -121,6 +128,7 @@ textarea {
 	border-color: var(--border);
 }
 
+/* Header element font sizes and line heights */
 h1 {
 	font-size: 2rem;
 	line-height: 2.5rem;
@@ -157,6 +165,7 @@ h6 {
 	font-weight: 600;
 }
 
+/* Card and popover styles */
 .card {
 	padding: 1rem;
 	border-radius: 1rem;
@@ -175,6 +184,7 @@ h6 {
 	opacity: 60;
 }
 
+/* Button class styles */
 .btn {
 	display: flex;
 	flex-direction: row;
@@ -192,6 +202,7 @@ h6 {
 	opacity: 0.8;
 }
 
+/* Icon label styles */
 .icon {
 	transition: transform 0.3s ease-in-out;
 }
@@ -200,6 +211,7 @@ h6 {
 	transform: scale(1.2);
 }
 
+/* Tooltip class styles */
 .tooltip {
 	z-index: 1;
 	position: absolute;

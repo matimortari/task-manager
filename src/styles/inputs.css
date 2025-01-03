@@ -1,7 +1,9 @@
+/* Styling for disabled elements */
 .disabled {
 	opacity: 0.5;
 }
 
+/* Slider styling for toggle switches */
 .slider {
 	background-color: var(--muted);
 	position: absolute;
@@ -32,6 +34,7 @@ input:checked + .slider:before {
 	transform: translateX(12px);
 }
 
+/* Color picker input styling */
 input[type="color"] {
 	appearance: none;
 	-webkit-appearance: none;
@@ -60,6 +63,7 @@ input[type="color"]::-webkit-color-swatch {
 	border-radius: 100%;
 }
 
+/* Radio input styling */
 input[type="radio"] {
 	cursor: pointer;
 	background-color: transparent;
@@ -79,6 +83,7 @@ input[type="radio"]:hover {
 	border-color: var(--primary);
 }
 
+/* Checkbox input styling */
 input[type="checkbox"] {
 	cursor: pointer;
 	background-color: transparent;
