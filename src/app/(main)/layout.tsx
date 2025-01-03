@@ -41,7 +41,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
 						<Toaster position="top-center" />
 						<Header />
 						<div className="flex min-h-screen flex-col md:flex-row">
-							<div className="w-full md:w-1/12">
+							<div className="w-full md:w-min">
 								<Navbar />
 							</div>
 							<div className="flex-1">{children}</div>

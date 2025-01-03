@@ -24,13 +24,13 @@ export default function Home() {
 				<Filters />
 			</div>
 
-			<div className="my-4 grid grid-cols-1 gap-2 md:grid-cols-3">
+			<div className="my-4 grid grid-cols-1 place-items-center gap-4 md:grid-cols-4">
 				{filteredTasks.map((task: Task) => (
 					<TaskItem key={task.id} task={task} isFlashing={isFlashing} />
 				))}
 
 				<button
-					className={`size-64 w-full rounded-2xl border-2 border-dashed py-2 text-lg font-medium text-muted-foreground transition duration-200 ease-in-out hover:bg-secondary ${
+					className={`size-56 rounded-2xl border-2 border-dashed border-border py-2 text-lg font-medium text-muted-foreground hover:bg-secondary ${
 						isFlashing ? "animate-flash" : ""
 					}`}
 					onClick={() => setIsDialogOpen(true)}

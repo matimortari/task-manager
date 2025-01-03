@@ -2,7 +2,7 @@
 
 import { Icon } from "@iconify/react"
 import { useState } from "react"
-import { formatDate } from "../lib/utils"
+import { capitalize, formatDate } from "../lib/utils"
 import { useTasks } from "./context/TaskContext"
 import EditTaskDialog from "./dialogs/EditTaskDialog"
 
@@ -27,7 +27,7 @@ export default function TaskItem({ task, isFlashing }) {
 
 	return (
 		<div
-			className={`relative flex size-64 w-full flex-col gap-6 rounded-2xl bg-background p-4 transition-all duration-500 ease-in-out ${
+			className={`relative flex size-56 flex-col gap-6 rounded-2xl bg-background p-4 transition-all duration-500 ease-in-out ${
 				isFlashing ? "animate-flash" : ""
 			}`}
 		>
@@ -48,25 +48,25 @@ export default function TaskItem({ task, isFlashing }) {
 					</span>
 				</p>
 				<p>
-					Priority: <span className="font-semibold">{task.priority}</span>
+					Priority: <span className="font-semibold">{capitalize(task.priority)}</span>
 				</p>
 			</div>
 
-			<div className="absolute bottom-3 right-3 flex gap-2">
+			<div className="absolute bottom-2 right-2 flex gap-1">
 				<button onClick={handleToggleCompletion}>
 					{task.completed ? (
-						<Icon icon="mdi:play" className="icon size-5 text-foreground hover:text-muted" />
+						<Icon icon="mdi:arrow-right-drop-circle" className="icon size-6 text-foreground hover:text-muted" />
 					) : (
-						<Icon icon="mdi:check" className="icon size-5 text-foreground hover:text-muted" />
+						<Icon icon="mdi:check-circle" className="icon size-6 text-foreground hover:text-muted" />
 					)}
 				</button>
 
 				<button onClick={() => setIsDialogOpen(true)}>
-					<Icon icon="mdi:edit" className="icon size-5 text-primary hover:text-muted" />
+					<Icon icon="mdi:text-box-edit" className="icon size-6 text-accent hover:text-muted" />
 				</button>
 
 				<button onClick={handleDelete}>
-					<Icon icon="mdi:delete" className="icon size-5 text-danger hover:text-muted" />
+					<Icon icon="mdi:delete" className="icon size-6 text-danger hover:text-muted" />
 				</button>
 			</div>
 

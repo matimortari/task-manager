@@ -14,7 +14,7 @@ export default function Overdue() {
 		<div className="card min-h-screen">
 			<h2>Overdue Tasks</h2>
 
-			<div className="my-4 grid grid-cols-1 gap-2 md:grid-cols-3">
+			<div className="my-4 grid grid-cols-1 place-items-center gap-4 md:grid-cols-4">
 				{overdueTasks.length === 0 ? (
 					<p>No overdue tasks</p>
 				) : (

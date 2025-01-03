@@ -20,10 +20,13 @@ export async function getSessionOrUnauthorized() {
 }
 
 // Helper function to format a date string
-export function formatDate(date) {
+export function formatDate(date: string) {
 	return new Date(date).toLocaleDateString("en-US", {
 		year: "numeric",
-		month: "long",
+		month: "short",
 		day: "numeric"
 	})
 }
+
+// Helper function to capitalize the first letter of a string
+export const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
