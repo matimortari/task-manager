@@ -1,9 +1,13 @@
-export const distDir = "dist"
-export const images = {
-	remotePatterns: [
-		{
-			protocol: "https",
-			hostname: "**"
-		}
-	]
+const nextConfig = {
+	distDir: "dist",
+	images: {
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "**"
+			}
+		]
+	}
 }
+
+export default nextConfig

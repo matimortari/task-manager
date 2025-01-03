@@ -11,17 +11,9 @@ export default [
 	pluginJs.configs.recommended,
 
 	{ files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
-
-	{
-		languageOptions: {
-			globals: { ...globals.browser, ...globals.node }
-		}
-	},
-
 	{ ignores: ["node_modules/", "dist/", "tests/", "coverage/"] },
-
+	{ languageOptions: { globals: { ...globals.browser, ...globals.node } } },
 	{ settings: { react: { version: "detect" } } },
-
 	{
 		plugins: { tailwindcss: pluginTailwindCSS },
 		rules: {
@@ -29,13 +21,13 @@ export default [
 			"no-unused-vars": "off",
 			"@typescript-eslint/no-empty-object-type": "off",
 			"@typescript-eslint/no-explicit-any": "off",
+			"react/react-in-jsx-scope": "off",
+			"react/prop-types": "off",
+			"react/no-unescaped-entities": "off",
 			"tailwindcss/classnames-order": "warn",
 			"tailwindcss/enforces-shorthand": "warn",
 			"tailwindcss/no-unnecessary-arbitrary-value": "warn",
-			"tailwindcss/no-custom-classname": "off",
-			"react/react-in-jsx-scope": "off",
-			"react/prop-types": "off",
-			"react/no-unescaped-entities": "off"
+			"tailwindcss/no-custom-classname": "off"
 		}
 	}
 ]
