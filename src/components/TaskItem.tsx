@@ -32,7 +32,7 @@ export default function TaskItem({ task, isFlashing }) {
 			}`}
 		>
 			<div className="flex flex-row items-center justify-between gap-2">
-				<h3 className="truncate text-lg font-bold">{task.title}</h3>
+				<h4 className="truncate font-bold">{task.title}</h4>
 			</div>
 
 			<p className="truncate text-sm text-muted-foreground">{task.content}</p>

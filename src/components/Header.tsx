@@ -24,16 +24,16 @@ export default function Header() {
 
 			<div className="flex w-full flex-col items-center justify-between gap-4 sm:flex-row md:ml-28">
 				<div className="w-full text-center sm:w-auto sm:text-left">
-					<h1 className="text-base font-semibold">Hello, {session ? session.user.name : "Guest"} 👋</h1>
+					<h4 className="font-semibold">Hello, {session ? session.user.name : "Guest"} 👋</h4>
 					<span className="text-sm">
 						{session ? (
 							<div className="flex flex-row items-center justify-center md:justify-start">
-								<h2 className="text-start text-xs">
+								<p className="text-start text-xs font-medium">
 									You have <span className="font-bold text-accent">{activeTasks.length}</span> active tasks. Create a{" "}
 									<button className="font-bold text-primary" onClick={() => setIsDialogOpen(true)}>
 										new task.
 									</button>
-								</h2>
+								</p>
 							</div>
 						) : (
 							"Please sign in to see your tasks."

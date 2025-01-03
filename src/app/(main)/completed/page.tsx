@@ -13,7 +13,7 @@ export default function Completed() {
 
 	return (
 		<div className="card min-h-screen">
-			<h2 className="title">Completed Tasks</h2>
+			<h2>Completed Tasks</h2>
 
 			<div className="my-4 grid grid-cols-1 gap-2 md:grid-cols-3">
 				{completedTasks.length === 0 ? (

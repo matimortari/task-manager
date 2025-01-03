@@ -20,7 +20,7 @@ export default function Home() {
 	return (
 		<div className="card min-h-screen">
 			<div className="flex flex-row items-center justify-between gap-2">
-				<h2 className="title hidden md:block">All Tasks</h2>
+				<h2 className="hidden md:block">All Tasks</h2>
 				<Filters />
 			</div>
 

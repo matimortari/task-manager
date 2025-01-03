@@ -76,31 +76,29 @@
 	}
 }
 
-@layer components {
-	.bg-primary {
-		background-color: var(--primary);
-		color: var(--primary-foreground);
-	}
+.bg-primary {
+	background-color: var(--primary);
+	color: var(--primary-foreground);
+}
 
-	.bg-secondary {
-		background-color: var(--secondary);
-		color: var(--secondary-foreground);
-	}
+.bg-secondary {
+	background-color: var(--secondary);
+	color: var(--secondary-foreground);
+}
 
-	.bg-muted {
-		background-color: var(--muted);
-		color: var(--muted-foreground);
-	}
+.bg-muted {
+	background-color: var(--muted);
+	color: var(--muted-foreground);
+}
 
-	.bg-accent {
-		background-color: var(--accent);
-		color: var(--accent-foreground);
-	}
+.bg-accent {
+	background-color: var(--accent);
+	color: var(--accent-foreground);
+}
 
-	.bg-destructive {
-		background-color: var(--destructive);
-		color: var(--destructive-foreground);
-	}
+.bg-destructive {
+	background-color: var(--destructive);
+	color: var(--destructive-foreground);
 }
 
 body {
@@ -121,6 +119,42 @@ textarea {
 	border-radius: 1rem;
 	border-width: 1px;
 	border-color: var(--border);
+}
+
+h1 {
+	font-size: 2rem;
+	line-height: 2.5rem;
+	font-weight: 700;
+}
+
+h2 {
+	font-size: 1.5rem;
+	line-height: 2rem;
+	font-weight: 700;
+}
+
+h3 {
+	font-size: 1.25rem;
+	line-height: 1.75rem;
+	font-weight: 600;
+}
+
+h4 {
+	font-size: 1rem;
+	line-height: 1.5rem;
+	font-weight: 600;
+}
+
+h5 {
+	font-size: 0.875rem;
+	line-height: 1.25rem;
+	font-weight: 600;
+}
+
+h6 {
+	font-size: 0.75rem;
+	line-height: 1rem;
+	font-weight: 600;
 }
 
 .card {
@@ -164,18 +198,6 @@ textarea {
 
 .icon:hover {
 	transform: scale(1.2);
-}
-
-.title {
-	font-size: 1.25rem;
-	line-height: 2rem;
-	font-weight: 700;
-}
-
-.subtitle {
-	font-size: 1.25rem;
-	line-height: 1.75rem;
-	font-weight: 600;
 }
 
 .tooltip {
