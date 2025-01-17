@@ -3,7 +3,7 @@ import { TasksProvider } from "@/src/components/context/TaskContext"
 import Footer from "@/src/components/Footer"
 import Header from "@/src/components/Header"
 import Navbar from "@/src/components/Navbar"
-import SideBar from "@/src/components/Sidebar"
+import Sidebar from "@/src/components/Sidebar"
 import { authOptions } from "@/src/lib/auth"
 import "@/src/styles/globals.css"
 import type { Metadata } from "next"
@@ -46,7 +46,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
 							</div>
 							<div className="flex-1">{children}</div>
 							<div className="w-full md:w-3/12">
-								<SideBar />
+								<Sidebar />
 							</div>
 						</div>
 						<Footer />
