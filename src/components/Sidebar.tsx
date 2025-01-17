@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import Profile from "./Profile"
 import RadialChart from "./RadialChart"
 
-export default function SideBar() {
+export default function Sidebar() {
 	const [isVisible, setIsVisible] = useState(false)
 
 	useEffect(() => {
