@@ -1,6 +1,6 @@
 # Task Manager 📋
 
-Simple task manager website with some extra features and a clean UI!
+Simple task manager website with some extra features and a clean user interface! Allows users to create, edit, delete, and filter tasks, and view statistics.
 
 [**Check it out!** 🔍](https://wdc-task-manager.vercel.app)
 
@@ -15,8 +15,11 @@ Simple task manager website with some extra features and a clean UI!
 ## 🛠️ Stack
 
 - **Next.js** for routing & server-side rendering.
-- **NextAuth** for authentication with Google & GitHub.
+- **Auth.js** for authentication with Google & GitHub.
 - **Prisma** for database management.
+- **React Query** for data fetching and caching.
+- **React Hook Form** & **Zod** for form management and validation.
+- **shadcn/ui** for UI components.
 - **TypeScript**.
 - **Tailwind CSS**.
 
