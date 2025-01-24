@@ -18,13 +18,6 @@ export const metadata: Metadata = {
 	title: "Task Manager",
 	description: "Simple task manager web application.",
 	keywords: ["Task Manager", "Task", "Task App", "Task Manager Page"],
-	openGraph: {
-		url: "https://wdc-task-manager.vercel.app/",
-		images: "/cover.png",
-		title: "Task Manager",
-		description: "Simple task manager web application.",
-		type: "website"
-	},
 	other: {
 		"google-site-verification": "2j0bcfhh8FCYPpzFylzbiPjl3Pa0X7lMuG060ctsCsA"
 	}
