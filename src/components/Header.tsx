@@ -41,11 +41,15 @@ export default function Header() {
 					</span>
 				</div>
 
-				<div className="hidden w-full justify-center sm:w-auto sm:justify-end md:block">
-					<button onClick={() => setIsDialogOpen(true)} className="btn bg-primary text-sm">
-						Add New Task
-					</button>
-				</div>
+				{session ? (
+					<div className="hidden w-full justify-center sm:w-auto sm:justify-end md:block">
+						<button onClick={() => setIsDialogOpen(true)} className="btn bg-primary">
+							Add New Task
+						</button>
+					</div>
+				) : (
+					<div />
+				)}
 
 				<div className="flex items-center gap-2">
 					<ThemeSwitch />

@@ -87,16 +87,24 @@ export const TasksProvider = ({ children }) => {
 		}
 	}
 
-	// Delete a task
-	const deleteTask = async (taskId) => {
+	// Delete a specific task or all tasks
+	const deleteTask = async (taskId = null) => {
 		try {
-			const res = await fetch(`/api/tasks?id=${taskId}`, { method: "DELETE" })
-			if (!res.ok) return toast.error("Error deleting task")
+			const url = taskId ? `/api/tasks?id=${taskId}` : "/api/tasks"
+			const res = await fetch(url, { method: "DELETE" })
+			if (!res.ok) {
+				return toast.error("Error deleting task(s)")
+			}
 
-			setTasks((prev) => prev.filter((tsk) => tsk.id !== taskId))
-			toast.success("Task deleted successfully")
+			if (taskId) {
+				setTasks((prev) => prev.filter((tsk) => tsk.id !== taskId))
+				toast.success("Task deleted successfully")
+			} else {
+				setTasks([])
+				toast.success("All tasks deleted successfully")
+			}
 		} catch {
-			toast.error("Error deleting task")
+			toast.error("Error deleting task(s)")
 		}
 	}
 
