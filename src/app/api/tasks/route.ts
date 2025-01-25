@@ -71,18 +71,50 @@ export async function PUT(req: NextRequest) {
 	return NextResponse.json(updatedTask, { status: 200 })
 }
 
-// DELETE method for deleting a user task
+// DELETE method for deleting a user task or all tasks
 export async function DELETE(req: NextRequest) {
-	const { error, response } = await getSessionOrUnauthorized()
+	const { error, session, response } = await getSessionOrUnauthorized()
 	if (error) return response
 
-	const id = req.nextUrl.searchParams.get("id")
-	if (!id) return NextResponse.json({ error: "Invalid input" }, { status: 400 })
+	const taskId = req.nextUrl.searchParams.get("id")
 
-	const existingTask = await db.task.findFirst({ where: { id } })
-	if (!existingTask) return NextResponse.json({ error: "Task not found" }, { status: 404 })
+	// Delete a specific task if taskId is provided. Otherwise, delete all tasks
+	if (taskId) {
+		const existingTask = await db.task.findFirst({ where: { id: taskId } })
+		if (!existingTask || existingTask.userId !== session.user.id) {
+			return NextResponse.json({ error: "Task not found or not authorized" }, { status: 404 })
+		}
 
-	await db.task.delete({ where: { id } })
-
-	return NextResponse.json({ id })
+		await db.task.delete({ where: { id: taskId } })
+		return NextResponse.json({ id: taskId }, { status: 200 })
+	} else {
+		await db.task.deleteMany({ where: { userId: session.user.id } })
+		return NextResponse.json({ message: "All tasks deleted" }, { status: 200 })
+	}
 }
+
+// // DELETE method for deleting a user task
+// export async function DELETE(req: NextRequest) {
+// 	const { error, response } = await getSessionOrUnauthorized()
+// 	if (error) return response
+
+// 	const id = req.nextUrl.searchParams.get("id")
+// 	if (!id) return NextResponse.json({ error: "Invalid input" }, { status: 400 })
+
+// 	const existingTask = await db.task.findFirst({ where: { id } })
+// 	if (!existingTask) return NextResponse.json({ error: "Task not found" }, { status: 404 })
+
+// 	await db.task.delete({ where: { id } })
+
+// 	return NextResponse.json({ id })
+// }
+
+// // DELETE method for deleting all tasks
+// export async function DELETE() {
+// 	const { error, response } = await getSessionOrUnauthorized()
+// 	if (error) return response
+
+// 	await db.task.deleteMany()
+
+// 	return NextResponse.json({ message: "All tasks deleted" }, { status: 200 })
+// }

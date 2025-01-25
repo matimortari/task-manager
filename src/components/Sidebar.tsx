@@ -1,11 +1,16 @@
 "use client"
 
 import { Icon } from "@iconify/react"
+import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
 import Profile from "./Profile"
 import RadialChart from "./RadialChart"
+import { useTasks } from "./context/TaskContext"
 
 export default function Sidebar() {
+	const { data: session } = useSession()
+	const { deleteTask } = useTasks()
+
 	const [isVisible, setIsVisible] = useState(false)
 
 	useEffect(() => {
@@ -33,6 +38,18 @@ export default function Sidebar() {
 		setIsVisible((prev) => !prev)
 	}
 
+	const deleteAllTasks = async () => {
+		try {
+			await deleteTask()
+		} catch (error) {
+			console.error("Error deleting all tasks", error)
+		}
+	}
+
+	if (!session) {
+		return null
+	}
+
 	return (
 		<div className="my-6 flex h-full flex-col items-center gap-4">
 			{!isVisible && (
@@ -55,7 +72,16 @@ export default function Sidebar() {
 
 					<div className="mx-4 flex flex-col items-center justify-between gap-4">
 						<Profile />
-						<button className="btn bg-danger">Delete All Tasks</button>
+						<button
+							className="btn bg-danger"
+							onClick={() => {
+								if (window.confirm("Are you sure you want to delete all tasks? This action cannot be undone.")) {
+									deleteAllTasks()
+								}
+							}}
+						>
+							Delete All Tasks
+						</button>
 					</div>
 
 					<div className="mx-4 flex items-center justify-between md:mb-28">
