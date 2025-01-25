@@ -4,12 +4,22 @@ import { useSession } from "next-auth/react"
 import { createContext, useContext, useEffect, useState } from "react"
 import toast from "react-hot-toast"
 
-const TasksContext = createContext()
+const TasksContext = createContext<TaskContextType | undefined>(undefined)
 
 export const TasksProvider = ({ children }) => {
 	const { data: session } = useSession()
-	const [tasks, setTasks] = useState([])
-	const [task, setTask] = useState({})
+	const [tasks, setTasks] = useState<Task[]>([])
+	const [task, setTask] = useState<Task>({
+		id: "",
+		title: "",
+		content: "",
+		status: "",
+		completed: false,
+		dueDate: "",
+		priority: "low",
+		createdAt: "",
+		updatedAt: ""
+	})
 	const [isEditing, setIsEditing] = useState(false)
 	const [priority, setPriority] = useState("all")
 
@@ -88,7 +98,7 @@ export const TasksProvider = ({ children }) => {
 	}
 
 	// Delete a specific task or all tasks
-	const deleteTask = async (taskId = null) => {
+	const deleteTask = async (taskId: string | undefined = undefined) => {
 		try {
 			const url = taskId ? `/api/tasks?id=${taskId}` : "/api/tasks"
 			const res = await fetch(url, { method: "DELETE" })
@@ -159,6 +169,10 @@ export const TasksProvider = ({ children }) => {
 	)
 }
 
-export const useTasks = () => {
-	return useContext(TasksContext)
+export const useTasks = (): TaskContextType => {
+	const context = useContext(TasksContext)
+	if (!context) {
+		throw new Error("useTasks must be used within a TasksProvider")
+	}
+	return context
 }

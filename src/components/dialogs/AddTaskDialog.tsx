@@ -45,7 +45,7 @@ export default function AddTaskDialog({ isOpen, onClose }) {
 			status
 		}
 
-		await createTask(newTask)
+		createTask(newTask)
 		onClose()
 	}
 
