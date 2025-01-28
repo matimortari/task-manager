@@ -31,16 +31,26 @@ export default function Active() {
 		)
 	}
 
+	if (activeTasks.length === 0) {
+		return (
+			<div className="card m-2 flex min-h-screen items-center justify-center">
+				<div className="flex flex-col items-center justify-center gap-4 text-center">
+					<Icon icon="tdesign:task-checked-filled" className="size-16 text-accent" />
+					<h2 className="text-xl font-semibold">No active tasks.</h2>
+					<h3 className="text-base text-muted-foreground">You have no tasks that are currently active. Keep it up!</h3>
+				</div>
+			</div>
+		)
+	}
+
 	return (
 		<div className="card m-2 min-h-screen">
 			<h2>Active Tasks</h2>
 
 			<div className="my-4 grid grid-cols-1 place-items-center gap-4 md:grid-cols-4">
-				{activeTasks.length === 0 ? (
-					<p>No active tasks</p>
-				) : (
-					activeTasks.map((task: Task) => <TaskItem key={task.id} task={task} isFlashing={isFlashing} />)
-				)}
+				{activeTasks.map((task) => (
+					<TaskItem key={task.id} task={task} isFlashing={isFlashing} />
+				))}
 			</div>
 		</div>
 	)
