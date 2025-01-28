@@ -31,16 +31,28 @@ export default function Completed() {
 		)
 	}
 
+	if (completedTasks.length === 0) {
+		return (
+			<div className="card m-2 flex min-h-screen items-center justify-center">
+				<div className="flex flex-col items-center justify-center gap-4 text-center">
+					<Icon icon="tdesign:task-time-filled" className="size-16 text-accent" />
+					<h2 className="text-xl font-semibold">No completed tasks.</h2>
+					<h3 className="text-base text-muted-foreground">
+						Once you complete a task, it will appear here. Let's get started!
+					</h3>
+				</div>
+			</div>
+		)
+	}
+
 	return (
 		<div className="card m-2 min-h-screen">
 			<h2>Completed Tasks</h2>
 
 			<div className="my-4 grid grid-cols-1 place-items-center gap-4 md:grid-cols-4">
-				{completedTasks.length === 0 ? (
-					<p>No completed tasks</p>
-				) : (
-					completedTasks.map((task: Task) => <TaskItem key={task.id} task={task} isFlashing={isFlashing} />)
-				)}
+				{completedTasks.map((task) => (
+					<TaskItem key={task.id} task={task} isFlashing={isFlashing} />
+				))}
 			</div>
 		</div>
 	)

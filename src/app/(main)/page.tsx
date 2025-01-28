@@ -38,6 +38,25 @@ export default function Home() {
 		)
 	}
 
+	if (filteredTasks.length === 0) {
+		return (
+			<div className="card m-2 flex min-h-screen items-center justify-center">
+				<div className="flex flex-col items-center justify-center gap-4 text-center">
+					<Icon icon="solar:sleeping-square-bold" className="size-16 text-accent" />
+					<h2 className="text-xl font-semibold">No tasks yet.</h2>
+					<h3 className="text-base text-muted-foreground">
+						You have no tasks yet. To get started, click{" "}
+						<button onClick={() => setIsDialogOpen(true)} className="font-bold text-primary">
+							here.
+						</button>
+					</h3>
+				</div>
+
+				<AddTaskDialog isOpen={isDialogOpen} onClose={handleDialogClose} />
+			</div>
+		)
+	}
+
 	return (
 		<div className="card m-2 min-h-screen">
 			<div className="flex flex-row items-center justify-between gap-2">
