@@ -5,8 +5,9 @@ import useDialog from "@/src/hooks/useDialog"
 import { useEffect, useState } from "react"
 
 export default function AddTaskDialog({ isOpen, onClose }) {
-	const { dialogRef, error, setError } = useDialog(onClose)
+	const { dialogRef, error, setError } = useDialog(onClose, isOpen)
 	const { createTask } = useTasks()
+
 	const [title, setTitle] = useState("")
 	const [content, setContent] = useState("")
 	const [dueDate, setDueDate] = useState("")
@@ -24,9 +25,8 @@ export default function AddTaskDialog({ isOpen, onClose }) {
 		}
 	}, [isOpen, setError])
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
-
 		if (!title || !content) {
 			setError("Title and content are required")
 			return
@@ -49,14 +49,16 @@ export default function AddTaskDialog({ isOpen, onClose }) {
 		onClose()
 	}
 
-	const handleChange = (setter) => (e) => {
-		setter(e.target.value)
-	}
+	const handleChange =
+		(setter: React.Dispatch<React.SetStateAction<string>>) =>
+		(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+			setter(e.target.value)
+		}
 
 	if (!isOpen) return null
 
 	return (
-		<div className="fixed left-0 top-0 z-50 flex size-full items-center justify-center bg-black bg-opacity-50">
+		<div className="fixed left-0 top-0 z-50 flex size-full items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
 			<div ref={dialogRef} className="popover">
 				<h3>Add New Task</h3>
 
