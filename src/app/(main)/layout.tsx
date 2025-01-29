@@ -33,15 +33,15 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
 					<TasksProvider>
 						<Toaster position="top-center" />
 						<Header />
+
 						<div className="flex min-h-screen flex-col md:flex-row">
-							<div className="w-full md:w-min">
-								<Navbar />
-							</div>
+							<Navbar />
 							<div className="flex-1">{children}</div>
-							<div className="w-full md:w-3/12">
+							<aside className="w-full md:w-3/12">
 								<Sidebar />
-							</div>
+							</aside>
 						</div>
+
 						<Footer />
 					</TasksProvider>
 				</Providers>

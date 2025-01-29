@@ -40,10 +40,15 @@ export default function Home() {
 		)
 	}
 
-	if (filteredTasks.length === 0) {
-		return (
-			<div className="card m-2 flex min-h-screen items-center justify-center">
-				<div className="flex flex-col items-center justify-center gap-4 text-center">
+	return (
+		<div className="card m-2 min-h-screen">
+			<header className="flex flex-row items-center justify-between gap-2">
+				<h2 className="text-xl font-semibold">All Tasks</h2>
+				<Filters />
+			</header>
+
+			{filteredTasks.length === 0 ? (
+				<div className="flex min-h-screen flex-col items-center justify-center gap-4 text-center">
 					<Icon icon="solar:sleeping-square-bold" className="size-16 text-accent" />
 					<h2 className="text-xl font-semibold">No tasks yet.</h2>
 					<h3 className="text-base text-muted-foreground">
@@ -53,33 +58,22 @@ export default function Home() {
 						</button>
 					</h3>
 				</div>
+			) : (
+				<div className="my-4 grid grid-cols-1 place-items-center gap-4 md:grid-cols-4">
+					{filteredTasks.map((task) => (
+						<TaskItem key={task.id} task={task} isFlashing={isFlashing} />
+					))}
 
-				<AddTaskDialog isOpen={isDialogOpen} onClose={handleDialogClose} />
-			</div>
-		)
-	}
-
-	return (
-		<div className="card m-2 min-h-screen">
-			<div className="flex flex-row items-center justify-between gap-2">
-				<h2 className="hidden md:block">All Tasks</h2>
-				<Filters />
-			</div>
-
-			<div className="my-4 grid grid-cols-1 place-items-center gap-4 md:grid-cols-4">
-				{filteredTasks.map((task: Task) => (
-					<TaskItem key={task.id} task={task} isFlashing={isFlashing} />
-				))}
-
-				<button
-					className={`size-56 rounded-2xl border-2 border-dashed border-border py-2 text-lg font-medium text-muted-foreground hover:bg-secondary ${
-						isFlashing ? "animate-flash" : ""
-					}`}
-					onClick={() => setIsDialogOpen(true)}
-				>
-					Add New Task
-				</button>
-			</div>
+					<button
+						className={`size-56 rounded-2xl border-2 border-dashed border-border py-2 text-lg font-medium text-muted-foreground hover:bg-secondary ${
+							isFlashing ? "animate-flash" : ""
+						}`}
+						onClick={() => setIsDialogOpen(true)}
+					>
+						Add New Task
+					</button>
+				</div>
+			)}
 
 			<AddTaskDialog isOpen={isDialogOpen} onClose={handleDialogClose} />
 		</div>

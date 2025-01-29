@@ -16,12 +16,12 @@ export default function TaskItem({ task, isFlashing }) {
 	}
 
 	const handleToggleCompletion = async () => {
-		await toggleTaskStatus(task.id, !task.completed)
+		toggleTaskStatus(task.id, !task.completed)
 	}
 
 	const handleDelete = async () => {
 		if (window.confirm("Are you sure you want to delete this task?")) {
-			await deleteTask(task.id)
+			deleteTask(task.id)
 		}
 	}
 
@@ -35,7 +35,8 @@ export default function TaskItem({ task, isFlashing }) {
 				<h4 className="truncate font-bold">{task.title}</h4>
 			</div>
 
-			<p className="truncate text-sm text-muted-foreground">{task.content}</p>
+			{/* Task content with fixed height and truncation */}
+			<p className="line-clamp-3 h-16 overflow-hidden text-sm text-muted-foreground">{task.content}</p>
 
 			<div className="flex flex-col gap-1 text-xs">
 				<p>
