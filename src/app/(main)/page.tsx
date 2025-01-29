@@ -13,8 +13,10 @@ import { useState } from "react"
 export default function Home() {
 	const { data: session } = useSession()
 	const { filteredTasks } = useTasks()
-	const [isDialogOpen, setIsDialogOpen] = useState(false)
+
 	const isFlashing = useAnimations(1000)
+
+	const [isDialogOpen, setIsDialogOpen] = useState(false)
 
 	const handleDialogClose = () => {
 		setIsDialogOpen(false)
