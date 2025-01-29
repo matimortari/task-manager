@@ -5,11 +5,9 @@ import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
 import Profile from "./Profile"
 import RadialChart from "./RadialChart"
-import { useTasks } from "./context/TaskContext"
 
 export default function Sidebar() {
 	const { data: session } = useSession()
-	const { deleteTask } = useTasks()
 
 	const [isVisible, setIsVisible] = useState(false)
 
@@ -38,51 +36,36 @@ export default function Sidebar() {
 		setIsVisible((prev) => !prev)
 	}
 
-	const deleteAllTasks = () => {
-		try {
-			if (window.confirm("Are you sure you want to delete all tasks? This action cannot be undone.")) {
-				deleteTask()
-			}
-		} catch (error) {
-			console.error("Error deleting all tasks", error)
-		}
-	}
-
 	if (!session) {
 		return null
 	}
 
 	return (
 		<div className="my-6 flex h-full flex-col items-center gap-4">
+			{/* Mobile toggle button */}
 			{!isVisible && (
 				<button className="btn fixed bottom-16 z-20 transform bg-primary text-lg md:hidden" onClick={toggleSidebar}>
 					Manage Tasks
 				</button>
 			)}
 
-			{/* Mobile dialog */}
 			<div
 				className={`w-full transition-all duration-300 ${
 					isVisible ? "block" : "hidden"
-				} fixed left-0 top-0 z-10 h-screen w-full bg-background md:relative md:block md:size-auto`}
+				} fixed left-0 top-0 z-10 h-screen w-full rounded-2xl bg-background p-4 md:relative md:block md:size-auto`}
 			>
 				<button className="absolute right-4 top-4 p-2 md:hidden" onClick={toggleSidebar}>
 					<Icon icon="mdi:close" className="size-8" />
 				</button>
 
-				<div className="flex h-full flex-col items-center justify-center gap-8 md:items-start md:justify-start">
+				<div className="flex h-full flex-col items-center justify-center gap-4 md:justify-start">
 					<h2 className="block md:hidden">Manage Tasks</h2>
 
-					<div className="mx-4 flex flex-col items-center justify-between gap-4">
+					<div className="mx-4 flex flex-col items-center justify-center gap-4">
 						<Profile />
-						<button className="btn bg-danger" onClick={deleteAllTasks}>
-							Delete All Tasks
-						</button>
 					</div>
 
-					<div className="mx-4 flex items-center justify-between md:mb-28">
-						<RadialChart />
-					</div>
+					<RadialChart />
 				</div>
 			</div>
 		</div>

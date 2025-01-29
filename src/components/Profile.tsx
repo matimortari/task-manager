@@ -34,13 +34,13 @@ export default function Profile() {
 						height={40}
 						className="rounded-full"
 					/>
-					<p className="text-sm font-bold">My Tasks</p>
+					<p className="text-sm font-bold">My Tasks:</p>
 				</div>
 			) : (
 				<div className="size-10 rounded-full bg-background" />
 			)}
 
-			<div className="grid grid-cols-2 gap-4 text-xs">
+			<div className="grid grid-cols-2 gap-6 text-xs">
 				<StatCard label="Completed" value={completedTasks.length} />
 				<StatCard label="Active" value={activeTasks.length} />
 				<StatCard label="Overdue" value={overdueTasks.length} />
