@@ -38,9 +38,11 @@ export default function Sidebar() {
 		setIsVisible((prev) => !prev)
 	}
 
-	const deleteAllTasks = async () => {
+	const deleteAllTasks = () => {
 		try {
-			await deleteTask()
+			if (window.confirm("Are you sure you want to delete all tasks? This action cannot be undone.")) {
+				deleteTask()
+			}
 		} catch (error) {
 			console.error("Error deleting all tasks", error)
 		}
@@ -58,6 +60,7 @@ export default function Sidebar() {
 				</button>
 			)}
 
+			{/* Mobile dialog */}
 			<div
 				className={`w-full transition-all duration-300 ${
 					isVisible ? "block" : "hidden"
@@ -72,14 +75,7 @@ export default function Sidebar() {
 
 					<div className="mx-4 flex flex-col items-center justify-between gap-4">
 						<Profile />
-						<button
-							className="btn bg-danger"
-							onClick={() => {
-								if (window.confirm("Are you sure you want to delete all tasks? This action cannot be undone.")) {
-									deleteAllTasks()
-								}
-							}}
-						>
+						<button className="btn bg-danger" onClick={deleteAllTasks}>
 							Delete All Tasks
 						</button>
 					</div>
