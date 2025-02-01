@@ -9,9 +9,9 @@ export default function Filters() {
 
 	return (
 		<div className="relative grid grid-cols-4 items-center gap-2">
-			{priorities.map((item, index) => (
+			{priorities.map((item) => (
 				<button
-					key={index}
+					key={item}
 					className={`btn relative text-sm transition-all duration-300 ${
 						priority === item.toLowerCase() ? "scale-105 transform bg-secondary" : "bg-background text-muted-foreground"
 					}`}

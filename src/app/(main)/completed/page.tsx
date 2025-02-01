@@ -34,19 +34,27 @@ export default function Completed() {
 		)
 	}
 
-	return (
-		<div className="card m-2 min-h-screen">
-			<header className="flex flex-row items-center justify-between gap-2">
-				<h2 className="text-xl font-semibold">Completed Tasks</h2>
-			</header>
-
-			{filteredTasks.length === 0 ? (
+	if (filteredTasks.length === 0) {
+		return (
+			<div className="card m-2 min-h-screen">
+				<header className="flex flex-row items-center justify-between gap-2">
+					<h2 className="text-xl font-semibold">Completed Tasks</h2>
+				</header>
 				<div className="flex min-h-screen flex-col items-center justify-center gap-4 text-center">
 					<Icon icon="solar:sleeping-square-bold" className="size-16 text-accent" />
 					<h2 className="text-xl font-semibold">No tasks yet.</h2>
 					<h3 className="text-base text-muted-foreground">You have no tasks yet.</h3>
 				</div>
-			) : completedTasks.length === 0 ? (
+			</div>
+		)
+	}
+
+	if (completedTasks.length === 0) {
+		return (
+			<div className="card m-2 min-h-screen w-full">
+				<header className="flex flex-row items-center justify-between gap-2">
+					<h2 className="text-xl font-semibold">Completed Tasks</h2>
+				</header>
 				<div className="flex min-h-screen flex-col items-center justify-center gap-4 text-center">
 					<Icon icon="tdesign:task-time-filled" className="size-16 text-accent" />
 					<h2 className="text-xl font-semibold">No completed tasks.</h2>
@@ -54,13 +62,20 @@ export default function Completed() {
 						Once you complete a task, it will appear here. Let's get started!
 					</h3>
 				</div>
-			) : (
-				<div className="my-4 grid grid-cols-1 place-items-center gap-4 md:grid-cols-4">
-					{completedTasks.map((task) => (
-						<TaskItem key={task.id} task={task} isFlashing={isFlashing} />
-					))}
-				</div>
-			)}
+			</div>
+		)
+	}
+
+	return (
+		<div className="card m-2 min-h-screen">
+			<header className="flex flex-row items-center justify-between gap-2">
+				<h2 className="text-xl font-semibold">Completed Tasks</h2>
+			</header>
+			<div className="my-4 grid grid-cols-1 place-items-center gap-6 md:grid-cols-4">
+				{completedTasks.map((task) => (
+					<TaskItem key={task.id} task={task} isFlashing={isFlashing} />
+				))}
+			</div>
 		</div>
 	)
 }

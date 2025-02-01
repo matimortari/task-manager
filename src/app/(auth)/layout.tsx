@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 	description: "Simple task manager web application."
 }
 
-export default async function RootLayout({ children }: { children: ReactNode }) {
+export default async function AuthLayout({ children }: Readonly<{ children: ReactNode }>) {
 	const session = await getServerSession(authOptions)
 
 	return (

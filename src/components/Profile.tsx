@@ -17,6 +17,7 @@ function StatCard({ label, value }) {
 
 export default function Profile() {
 	const { data: session, status } = useSession()
+
 	const { tasks, activeTasks, completedTasks, overdueTasks } = useTasks()
 
 	if (status !== "authenticated") {
@@ -24,7 +25,7 @@ export default function Profile() {
 	}
 
 	return (
-		<div className="card flex flex-row items-start gap-6">
+		<div className="card flex w-full flex-row items-start gap-6">
 			{session?.user?.image ? (
 				<div className="flex flex-col gap-2">
 					<Image

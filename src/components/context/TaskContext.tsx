@@ -1,7 +1,7 @@
 "use client"
 
 import { useSession } from "next-auth/react"
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext, useContext, useEffect, useMemo, useState } from "react"
 import toast from "react-hot-toast"
 
 const TasksContext = createContext<TaskContextType | undefined>(undefined)
@@ -76,7 +76,7 @@ export const TasksProvider = ({ children }) => {
 	}
 
 	// Toggle task status
-	const toggleTaskStatus = async (taskId, isCompleted) => {
+	const toggleTaskStatus = async (taskId: string, isCompleted: boolean) => {
 		try {
 			const res = await fetch(`/api/tasks?id=${taskId}`, {
 				method: "PUT",
@@ -107,7 +107,7 @@ export const TasksProvider = ({ children }) => {
 			}
 
 			if (taskId) {
-				setTasks((prev) => prev.filter((tsk) => tsk.id !== taskId))
+				setTasks((prev) => prev.filter((task) => task.id !== taskId))
 				toast.success("Task deleted successfully")
 			} else {
 				setTasks([])
@@ -119,7 +119,7 @@ export const TasksProvider = ({ children }) => {
 	}
 
 	// Handle input change for form fields
-	const handleInput = (name) => (e) => {
+	const handleInput = (name: string) => (e: any) => {
 		if (name === "setTask") {
 			setTask(e)
 		} else {
@@ -144,29 +144,29 @@ export const TasksProvider = ({ children }) => {
 		}
 	}, [session?.user?.id])
 
-	return (
-		<TasksContext.Provider
-			value={{
-				tasks,
-				filteredTasks,
-				task,
-				createTask,
-				updateTask,
-				deleteTask,
-				toggleTaskStatus,
-				priority,
-				setPriority,
-				handleInput,
-				isEditing,
-				setIsEditing,
-				activeTasks,
-				completedTasks,
-				overdueTasks
-			}}
-		>
-			{children}
-		</TasksContext.Provider>
+	// Use useMemo to memoize the context value
+	const contextValue = useMemo(
+		() => ({
+			tasks,
+			filteredTasks,
+			task,
+			createTask,
+			updateTask,
+			deleteTask,
+			toggleTaskStatus,
+			priority,
+			setPriority,
+			handleInput,
+			isEditing,
+			setIsEditing,
+			activeTasks,
+			completedTasks,
+			overdueTasks
+		}),
+		[tasks, filteredTasks, task, priority, isEditing, activeTasks, completedTasks, overdueTasks] // Dependencies for when context should update
 	)
+
+	return <TasksContext.Provider value={contextValue}>{children}</TasksContext.Provider>
 }
 
 export const useTasks = (): TaskContextType => {

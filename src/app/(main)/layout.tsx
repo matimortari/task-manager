@@ -3,7 +3,7 @@ import { TasksProvider } from "@/src/components/context/TaskContext"
 import Footer from "@/src/components/Footer"
 import Header from "@/src/components/Header"
 import Navbar from "@/src/components/Navbar"
-import Sidebar from "@/src/components/Sidebar"
+import Overview from "@/src/components/Overview"
 import { authOptions } from "@/src/lib/auth"
 import "@/src/styles/globals.css"
 import type { Metadata } from "next"
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 	}
 }
 
-export default async function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
 	const session = await getServerSession(authOptions)
 
 	return (
@@ -33,15 +33,11 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
 					<TasksProvider>
 						<Toaster position="top-center" />
 						<Header />
-
 						<div className="flex min-h-screen flex-col md:flex-row">
 							<Navbar />
-							<div className="flex-1">{children}</div>
-							<aside className="w-full md:w-3/12">
-								<Sidebar />
-							</aside>
+							{children}
+							<Overview />
 						</div>
-
 						<Footer />
 					</TasksProvider>
 				</Providers>

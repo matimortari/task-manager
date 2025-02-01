@@ -31,9 +31,9 @@ export default function Header() {
 							<p className="text-start text-xs font-medium">
 								You have <span className="font-bold text-accent">{activeTasks.length}</span> active tasks.{" "}
 								<span className="block md:hidden">
-									Create a{""}
-									<button className="font-bold text-primary" onClick={() => setIsDialogOpen(true)}>
-										new task.
+									Create a{" "}
+									<button onClick={() => setIsDialogOpen(true)} className="text-primary">
+										New Task
 									</button>
 								</span>
 							</p>

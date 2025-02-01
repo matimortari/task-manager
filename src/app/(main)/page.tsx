@@ -41,7 +41,7 @@ export default function Home() {
 	}
 
 	return (
-		<div className="card m-2 min-h-screen">
+		<div className="card m-2 min-h-screen w-full">
 			<header className="flex flex-row items-center justify-between gap-2">
 				<h2 className="text-xl font-semibold">All Tasks</h2>
 				<Filters />
@@ -65,7 +65,7 @@ export default function Home() {
 					))}
 
 					<button
-						className={`size-56 rounded-2xl border-2 border-dashed border-border py-2 text-lg font-medium text-muted-foreground hover:bg-secondary ${
+						className={`h-56 w-full rounded-2xl border-2 border-dashed border-border text-lg font-medium text-muted-foreground hover:bg-secondary md:size-56 ${
 							isFlashing ? "animate-flash" : ""
 						}`}
 						onClick={() => setIsDialogOpen(true)}
