@@ -4,9 +4,9 @@ import { Icon } from "@iconify/react"
 import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
 import Profile from "./Profile"
-import RadialChart from "./RadialChart"
+import TaskCharts from "./TaskCharts"
 
-export default function Sidebar() {
+export default function Overview() {
 	const { data: session } = useSession()
 
 	const [isVisible, setIsVisible] = useState(false)
@@ -41,33 +41,31 @@ export default function Sidebar() {
 	}
 
 	return (
-		<div className="my-6 flex h-full flex-col items-center gap-4">
+		<>
 			{/* Mobile toggle button */}
 			{!isVisible && (
-				<button className="btn fixed bottom-16 z-20 transform bg-primary text-lg md:hidden" onClick={toggleSidebar}>
-					Manage Tasks
-				</button>
+				<div className="flex flex-col items-center">
+					<button className="btn fixed bottom-16 z-20 transform bg-primary md:hidden" onClick={toggleSidebar}>
+						Manage Tasks
+					</button>
+				</div>
 			)}
 
 			<div
-				className={`w-full transition-all duration-300 ${
+				className={`fixed left-0 top-0 z-10 h-screen w-full bg-background py-2 transition-all duration-300 md:relative md:block md:size-auto ${
 					isVisible ? "block" : "hidden"
-				} fixed left-0 top-0 z-10 h-screen w-full rounded-2xl bg-background p-4 md:relative md:block md:size-auto`}
+				}`}
 			>
 				<button className="absolute right-4 top-4 p-2 md:hidden" onClick={toggleSidebar}>
 					<Icon icon="mdi:close" className="size-8" />
 				</button>
 
-				<div className="flex h-full flex-col items-center justify-center gap-4 md:justify-start">
+				<div className="m-6 flex flex-col items-center justify-center gap-4 md:my-0 md:justify-start">
 					<h2 className="block md:hidden">Manage Tasks</h2>
-
-					<div className="mx-4 flex flex-col items-center justify-center gap-4">
-						<Profile />
-					</div>
-
-					<RadialChart />
+					<Profile />
+					<TaskCharts />
 				</div>
 			</div>
-		</div>
+		</>
 	)
 }

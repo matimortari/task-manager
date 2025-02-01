@@ -36,6 +36,7 @@ export default function ThemeSwitch() {
 		<div className="flex items-center justify-start gap-2">
 			<span className="text-xs font-semibold">Theme: {isDarkMode ? "Dark" : "Light"}</span>
 			<label htmlFor="theme-switch" className="relative inline-block h-4 w-8">
+				<span className="sr-only">Toggle Theme</span>
 				<input
 					id="theme-switch"
 					type="checkbox"

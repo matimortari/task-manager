@@ -27,7 +27,7 @@ export default function TaskItem({ task, isFlashing }) {
 
 	return (
 		<div
-			className={`relative flex size-56 flex-col gap-6 rounded-2xl bg-background p-4 transition-all duration-500 ease-in-out ${
+			className={`relative flex w-full flex-col gap-6 rounded-2xl bg-background p-4 transition-all duration-500 ease-in-out md:size-56 ${
 				isFlashing ? "animate-flash" : ""
 			}`}
 		>
@@ -35,7 +35,6 @@ export default function TaskItem({ task, isFlashing }) {
 				<h4 className="truncate font-bold">{task.title}</h4>
 			</div>
 
-			{/* Task content with fixed height and truncation */}
 			<p className="line-clamp-3 h-16 overflow-hidden text-sm text-muted-foreground">{task.content}</p>
 
 			<div className="flex flex-col gap-1 text-xs">
@@ -43,9 +42,9 @@ export default function TaskItem({ task, isFlashing }) {
 					Due Date: <span className="font-semibold text-muted-foreground">{formatDate(task.dueDate)}</span>
 				</p>
 				<p>
-					Status:
+					Status:{" "}
 					<span className={`font-semibold ${task.completed ? "text-accent" : "text-primary"}`}>
-						{task.completed ? " Completed" : " Active"}
+						{task.completed ? "Completed" : "Active"}
 					</span>
 				</p>
 				<p>
