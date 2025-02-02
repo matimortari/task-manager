@@ -1,20 +1,23 @@
 "use client"
 
+import useDialog from "@/src/hooks/useDialog"
 import { Icon } from "@iconify/react"
-import { signIn, useSession } from "next-auth/react"
-import { redirect } from "next/navigation"
+import { signIn } from "next-auth/react"
+import { useEffect } from "react"
 
-export default function Login() {
-	const { status } = useSession()
+export default function SignInDialog({ isOpen, onClose }) {
+	const { dialogRef } = useDialog(onClose, isOpen)
 
-	if (status === "authenticated") {
-		redirect("/")
-	}
+	useEffect(() => {
+		if (!isOpen) return
+	}, [isOpen])
+
+	if (!isOpen) return null
 
 	return (
-		<div className="m-8 flex h-screen flex-col items-center">
-			<div className="card flex w-2/6 flex-col items-center justify-center">
-				<strong className="p-4 text-6xl">Sign In</strong>
+		<div className="fixed left-0 top-0 z-50 flex size-full items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
+			<div ref={dialogRef} className="popover">
+				<h3>Sign In</h3>
 				<p className="text-muted-foreground">Sign in with your preferred provider.</p>
 
 				<hr className="my-6 w-full" />

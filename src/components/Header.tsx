@@ -3,21 +3,21 @@
 import { Icon } from "@iconify/react"
 import { signOut, useSession } from "next-auth/react"
 import Image from "next/image"
-import Link from "next/link"
 import { useState } from "react"
 import { useTasks } from "./context/TaskContext"
 import AddTaskDialog from "./dialogs/AddTaskDialog"
+import SignInDialog from "./dialogs/SignInDialog"
 import ThemeSwitch from "./ThemeSwitch"
 
 export default function Header() {
 	const { data: session } = useSession()
 	const { activeTasks } = useTasks()
 
-	const [isDialogOpen, setIsDialogOpen] = useState(false)
+	const [isTaskDialogOpen, setIsTaskDialogOpen] = useState(false)
+	const [isSignInDialogOpen, setIsSignInDialogOpen] = useState(false)
 
-	const handleDialogClose = () => {
-		setIsDialogOpen(false)
-	}
+	const handleTaskDialogClose = () => setIsTaskDialogOpen(false)
+	const handleSignInDialogClose = () => setIsSignInDialogOpen(false)
 
 	return (
 		<div className="flex w-full flex-col items-center justify-between pt-6 sm:flex-row md:p-2">
@@ -32,7 +32,7 @@ export default function Header() {
 								You have <span className="font-bold text-accent">{activeTasks.length}</span> active tasks.{" "}
 								<span className="block md:hidden">
 									Create a{" "}
-									<button onClick={() => setIsDialogOpen(true)} className="text-primary">
+									<button onClick={() => setIsTaskDialogOpen(true)} className="text-primary">
 										New Task
 									</button>
 								</span>
@@ -45,7 +45,7 @@ export default function Header() {
 
 				{session ? (
 					<div className="hidden w-full justify-center sm:w-auto sm:justify-end md:block">
-						<button onClick={() => setIsDialogOpen(true)} className="btn bg-primary">
+						<button onClick={() => setIsTaskDialogOpen(true)} className="btn bg-primary">
 							Add New Task
 						</button>
 					</div>
@@ -61,14 +61,21 @@ export default function Header() {
 							<Icon icon="mdi:logout" className="size-6" />
 						</button>
 					) : (
-						<Link href="/login" className="flex items-center justify-center rounded-full border p-2">
-							<Icon icon="mdi:login" className="size-6" />
-						</Link>
+						<>
+							<button
+								onClick={() => setIsSignInDialogOpen(true)}
+								className="flex items-center justify-center rounded-full border p-2"
+							>
+								<Icon icon="mdi:login" className="size-6" />
+							</button>
+
+							<SignInDialog isOpen={isSignInDialogOpen} onClose={handleSignInDialogClose} />
+						</>
 					)}
 				</div>
 			</div>
 
-			<AddTaskDialog isOpen={isDialogOpen} onClose={handleDialogClose} />
+			<AddTaskDialog isOpen={isTaskDialogOpen} onClose={handleTaskDialogClose} />
 		</div>
 	)
 }

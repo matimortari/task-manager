@@ -126,7 +126,7 @@ export default function AddTaskDialog({ isOpen, onClose }) {
 						</select>
 					</div>
 
-					<div className="flex flex-row gap-2">
+					<div className="flex flex-row items-center gap-2">
 						<button type="submit" className="btn bg-primary">
 							Submit
 						</button>
