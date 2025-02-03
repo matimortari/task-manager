@@ -6,6 +6,7 @@ import Navbar from "@/src/components/Navbar"
 import Overview from "@/src/components/Overview"
 import { authOptions } from "@/src/lib/auth"
 import "@/src/styles/globals.css"
+import "@/src/styles/inputs.css"
 import type { Metadata } from "next"
 import { getServerSession } from "next-auth"
 import { Inter } from "next/font/google"
@@ -33,7 +34,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 					<TasksProvider>
 						<Toaster position="top-center" />
 						<Header />
-						<div className="flex min-h-screen flex-col md:flex-row">
+						<div className="flex flex-col md:flex-row">
 							<Navbar />
 							{children}
 							<Overview />

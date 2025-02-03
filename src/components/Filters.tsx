@@ -1,28 +1,63 @@
 "use client"
 
 import { useTasks } from "@/src/components/context/TaskContext"
+import { Icon } from "@iconify/react"
+import { useState } from "react"
 
 export default function Filters() {
 	const { priority, setPriority } = useTasks()
+	const [isOpen, setIsOpen] = useState(false)
 
 	const priorities = ["All", "Low", "Normal", "High"]
 
 	return (
-		<div className="relative grid grid-cols-4 items-center gap-2">
-			{priorities.map((item) => (
-				<button
-					key={item}
-					className={`btn relative text-sm transition-all duration-300 ${
-						priority === item.toLowerCase() ? "scale-105 transform bg-secondary" : "bg-background text-muted-foreground"
-					}`}
-					onClick={() => setPriority(item.toLowerCase())}
-					style={{
-						transition: "background-color 300ms ease, transform 200ms ease"
-					}}
-				>
-					{item}
+		<div className="relative z-10">
+			<div className="md:hidden">
+				<button onClick={() => setIsOpen(!isOpen)} className="btn">
+					<span>{priority.charAt(0).toUpperCase() + priority.slice(1)}</span>
+					<Icon
+						icon="mdi:chevron-down"
+						className={`size-4 transition-transform ${isOpen ? "rotate-180" : "rotate-0"}`}
+					/>
 				</button>
-			))}
+
+				{/* Dropdown menu for mobile */}
+				{isOpen && (
+					<div className="popover absolute -left-16 mt-2 flex w-32 flex-col gap-4">
+						{priorities.map((item) => (
+							<button
+								key={item}
+								onClick={() => {
+									setPriority(item.toLowerCase())
+									setIsOpen(false)
+								}}
+								className={`btn block w-full transition-all duration-300 ${
+									priority === item.toLowerCase() ? "bg-secondary" : "hover:bg-accent"
+								}`}
+							>
+								{item}
+							</button>
+						))}
+					</div>
+				)}
+			</div>
+
+			{/* Grid layout for desktop */}
+			<div className="hidden items-center md:grid md:grid-cols-4 md:gap-2">
+				{priorities.map((item) => (
+					<button
+						key={item}
+						onClick={() => setPriority(item.toLowerCase())}
+						className={`btn relative text-xs transition-all duration-300 ${
+							priority === item.toLowerCase()
+								? "scale-105 transform bg-secondary"
+								: "bg-background text-muted-foreground"
+						}`}
+					>
+						{item}
+					</button>
+				))}
+			</div>
 		</div>
 	)
 }

@@ -2,77 +2,75 @@
 
 import { useTasks } from "@/src/components/context/TaskContext"
 import { useSession } from "next-auth/react"
-import {
-	Bar,
-	BarChart,
-	Label,
-	PolarRadiusAxis,
-	RadialBar,
-	RadialBarChart,
-	ResponsiveContainer,
-	Tooltip,
-	XAxis
-} from "recharts"
+import { useState } from "react"
+import { Bar, BarChart, Cell, Pie, PieChart, ResponsiveContainer, Sector, Tooltip, XAxis } from "recharts"
+import { getColorForCompletion, getColorforPriority } from "../lib/utils"
 
-function TaskCompletionChart({
-	completionPercentage,
-	completedTasks,
-	activeTasks
-}: Readonly<{
-	completionPercentage: number
-	completedTasks: number
-	activeTasks: number
-}>) {
-	const chartConfig = {
-		completed: {
-			label: "Completed",
-			color: "#269d54"
-		},
-		active: {
-			label: "Active",
-			color: "#9d2a26"
-		}
-	}
+const renderActiveShape = (props: any) => {
+	const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill } = props
+
+	return (
+		<g>
+			<Sector
+				cx={cx}
+				cy={cy}
+				innerRadius={innerRadius}
+				outerRadius={outerRadius}
+				startAngle={startAngle}
+				endAngle={endAngle}
+				fill={fill}
+			/>
+			<Sector
+				cx={cx}
+				cy={cy}
+				startAngle={startAngle}
+				endAngle={endAngle}
+				innerRadius={outerRadius + 6}
+				outerRadius={outerRadius + 10}
+				fill={fill}
+			/>
+		</g>
+	)
+}
+
+function TaskCompletionChart({ completedTasks, activeTasks }) {
+	const [activeIndex, setActiveIndex] = useState(0)
 
 	const chartData = [
-		{
-			active: activeTasks,
-			completed: completedTasks
-		}
+		{ name: "Completed", value: completedTasks },
+		{ name: "Active", value: activeTasks }
 	]
 
-	const renderCustomLabel = (props: any) => {
-		const { viewBox } = props
-		if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-			return (
-				<text x={viewBox.cx} y={viewBox.cy} textAnchor="middle">
-					<tspan x={viewBox.cx} y={viewBox.cy - 10} className="fill-foreground text-xl font-bold">
-						{completionPercentage}%
-					</tspan>
-					<tspan x={viewBox.cx} y={viewBox.cy + 10} className="fill-muted-foreground text-xs">
-						Completed
-					</tspan>
-				</text>
-			)
-		}
-		return null
+	const onPieEnter = (_: any, index: number) => {
+		setActiveIndex(index)
 	}
 
 	return (
-		<ResponsiveContainer width="100%" height={200}>
-			<RadialBarChart data={chartData} startAngle={180} endAngle={0} innerRadius={80} outerRadius={100}>
-				<PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
-					<Label content={renderCustomLabel} />
-				</PolarRadiusAxis>
-				<RadialBar dataKey="completed" name="Completed Tasks" fill={chartConfig.completed.color} cornerRadius={5} />
-				<RadialBar dataKey="active" name="Active Tasks" fill={chartConfig.active.color} cornerRadius={5} />
+		<ResponsiveContainer width="100%" height={180}>
+			<PieChart>
+				<Pie
+					activeIndex={activeIndex}
+					activeShape={renderActiveShape}
+					data={chartData}
+					cx="50%"
+					cy="50%"
+					innerRadius={50}
+					outerRadius={70}
+					fill="#8884d8"
+					dataKey="value"
+					onMouseEnter={onPieEnter}
+				>
+					{chartData.map((entry, index) => (
+						<Cell key={`cell-${index}`} fill={getColorForCompletion(entry.name)} />
+					))}
+				</Pie>
 
 				<Tooltip
 					wrapperClassName="popover text-xs"
-					labelClassName="text-foreground font-semibold hidden"
+					labelClassName="text-foreground font-semibold"
 					contentStyle={{ backgroundColor: "var(--background)", border: "none" }}
 				/>
-			</RadialBarChart>
+			</PieChart>
 		</ResponsiveContainer>
 	)
 }
@@ -81,7 +79,7 @@ function TaskPriorityChart({ priorityCounts }: Readonly<{ priorityCounts: Record
 	const priorities = ["Low", "Normal", "High"]
 
 	return (
-		<ResponsiveContainer width="100%" height={200}>
+		<ResponsiveContainer width="100%" height={180}>
 			<BarChart
 				data={priorities.map((priorityLevel) => ({
 					name: priorityLevel,
@@ -89,12 +87,18 @@ function TaskPriorityChart({ priorityCounts }: Readonly<{ priorityCounts: Record
 				}))}
 			>
 				<XAxis dataKey="name" className="text-xs" />
+
+				<Bar dataKey="value" name="Tasks" radius={[10, 10, 0, 0]}>
+					{priorities.map((priorityLevel, index) => (
+						<Cell key={`cell-${index}`} fill={getColorforPriority(priorityLevel)} />
+					))}
+				</Bar>
+
 				<Tooltip
 					wrapperClassName="popover text-xs"
 					labelClassName="text-foreground font-semibold"
 					contentStyle={{ backgroundColor: "var(--background)", border: "none" }}
 				/>
-				<Bar dataKey="value" name="Tasks" fill="#556272" radius={[10, 10, 0, 0]} />
 			</BarChart>
 		</ResponsiveContainer>
 	)
@@ -102,66 +106,35 @@ function TaskPriorityChart({ priorityCounts }: Readonly<{ priorityCounts: Record
 
 export default function TaskCharts() {
 	const { status } = useSession()
-	const { tasks, activeTasks, completedTasks, deleteTask, priority } = useTasks()
 
-	if (status !== "authenticated") {
-		return null
-	}
+	const { tasks, activeTasks, completedTasks, priority } = useTasks()
 
 	const priorities = ["Low", "Normal", "High"]
 
 	const filteredTasks = priority === "all" ? tasks : tasks.filter((task) => task.priority === priority)
-
-	const completionPercentage = tasks.length > 0 ? ((completedTasks.length / tasks.length) * 100).toFixed(0) : "0"
-
-	const tasksDueSoon = tasks.filter((task) => {
-		if (task.dueDate) {
-			const currentTime = new Date()
-			const dueTime = new Date(task.dueDate)
-			const timeDiff = dueTime.getTime() - currentTime.getTime()
-			const hoursUntilDue = timeDiff / (1000 * 3600)
-			return hoursUntilDue <= 24 && hoursUntilDue >= 0
-		}
-		return false
-	}).length
-
-	const handleDeleteTasks = () => {
-		if (window.confirm("Are you sure you want to delete all tasks? This action cannot be undone.")) {
-			deleteTask()
-		}
-	}
 
 	const priorityCounts = priorities.reduce((acc, priorityLevel) => {
 		acc[priorityLevel] = filteredTasks.filter((task) => task.priority === priorityLevel.toLowerCase()).length
 		return acc
 	}, {})
 
+	if (status !== "authenticated") {
+		return null
+	}
+
 	return (
 		<div className="card flex w-full flex-col items-center">
-			<h2 className="text-center">Tasks Overview</h2>
-
 			<div className="flex w-full flex-col items-center gap-2">
-				<h4>Task Completion</h4>
-				<TaskCompletionChart
-					completionPercentage={parseInt(completionPercentage, 10)}
-					completedTasks={completedTasks.length}
-					activeTasks={activeTasks.length}
-				/>
+				<h3>Task Completion</h3>
+				<TaskCompletionChart completedTasks={completedTasks.length} activeTasks={activeTasks.length} />
 			</div>
 
+			<hr className="my-2 w-full" />
+
 			<div className="flex w-full flex-col items-center gap-2">
-				<h4>Tasks By Priority</h4>
+				<h3>Tasks By Priority</h3>
 				<TaskPriorityChart priorityCounts={priorityCounts} />
 			</div>
-
-			<p className="mt-2 flex items-center text-sm font-medium">
-				<span className="font-bold text-danger">{tasksDueSoon}</span>
-				<span className="ml-1">task{tasksDueSoon !== 1 ? "s" : ""} due within 24 hours.</span>
-			</p>
-
-			<button className="btn mt-4 bg-danger" onClick={handleDeleteTasks}>
-				Delete All Tasks
-			</button>
 		</div>
 	)
 }

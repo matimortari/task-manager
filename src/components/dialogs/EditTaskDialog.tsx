@@ -62,68 +62,73 @@ export default function EditTaskDialog({ isOpen, onClose, task }) {
 				{error && <h4 className="text-danger">{error}</h4>}
 
 				<form onSubmit={handleSubmit} className="flex flex-col gap-6 p-4">
-					<div className="flex items-center gap-2">
-						<label htmlFor="title" className="w-24">
-							Title
+					<div className="input-group">
+						<label htmlFor="title" className="w-24 text-sm">
+							Title:
 						</label>
 						<input
 							id="title"
 							type="text"
 							value={title}
 							onChange={handleChange(setTitle)}
-							className="input w-full"
+							className="input w-full text-sm"
 							required
 						/>
 					</div>
 
-					<div className="flex items-center gap-2">
-						<label htmlFor="content" className="w-24">
-							Content
+					<div className="input-group">
+						<label htmlFor="content" className="w-24 text-sm">
+							Content:
 						</label>
 						<textarea
 							id="content"
 							value={content}
 							onChange={handleChange(setContent)}
-							className="input w-full"
+							className="input h-24 w-full text-sm"
 							required
 						/>
 					</div>
 
-					<div className="flex items-center gap-2">
-						<label htmlFor="dueDate" className="w-24">
-							Due Date
+					<div className="input-group">
+						<label htmlFor="dueDate" className="w-24 text-sm">
+							Due Date:
 						</label>
 						<input
 							id="dueDate"
 							type="date"
 							value={dueDate}
 							onChange={handleChange(setDueDate)}
-							className="input w-full"
+							className="input w-full text-sm"
 						/>
 					</div>
 
-					<div className="flex items-center gap-2">
-						<label htmlFor="priority" className="w-24">
-							Priority
+					<div className="input-group">
+						<label htmlFor="priority" className="w-24 text-sm">
+							Priority:
 						</label>
-						<select id="priority" value={priority} onChange={handleChange(setPriority)} className="input w-full">
+						<select
+							id="priority"
+							value={priority}
+							onChange={handleChange(setPriority)}
+							className="input w-full text-sm"
+						>
 							<option value="low">Low</option>
 							<option value="normal">Normal</option>
 							<option value="high">High</option>
 						</select>
 					</div>
 
-					<div className="flex items-center gap-2">
-						<label htmlFor="status" className="w-24">
-							Status
+					<div className="input-group">
+						<label htmlFor="status" className="w-24 text-sm">
+							Status:
 						</label>
-						<select id="status" value={status} onChange={handleChange(setStatus)} className="input w-full">
+						<select id="status" value={status} onChange={handleChange(setStatus)} className="input w-full text-sm">
 							<option value="active">Active</option>
 							<option value="completed">Completed</option>
 						</select>
 					</div>
 
-					<div className="flex flex-row items-center gap-2">
+					<div className="input-group">
 						<button type="submit" className="btn bg-primary">
 							Submit
 						</button>
