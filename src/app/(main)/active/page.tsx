@@ -51,11 +51,14 @@ export default function Active() {
 	}
 
 	return (
-		<div className="card m-2 min-h-screen">
+		<div className="card m-2 min-h-screen w-full self-center md:self-auto">
 			<header className="flex flex-row items-center justify-between gap-2">
-				<h2 className="text-xl font-semibold">Active Tasks</h2>
+				<h2 className="font-semibold">Active Tasks</h2>
 			</header>
-			<div className="my-4 grid grid-cols-1 place-items-center gap-6 md:grid-cols-4">
+
+			<hr className="my-2" />
+
+			<div className="my-4 grid grid-cols-2 place-items-center gap-2 md:grid-cols-4">
 				{activeTasks.map((task) => (
 					<TaskItem key={task.id} task={task} isFlashing={isFlashing} />
 				))}

@@ -25,11 +25,13 @@ export default function Home() {
 	}
 
 	return (
-		<div className="card m-2 min-h-screen w-full">
-			<header className="flex flex-row items-center justify-between gap-2">
-				<h2 className="text-xl font-semibold">All Tasks</h2>
+		<div className="card m-2 min-h-screen w-full self-center md:self-auto">
+			<header className="flex h-10 flex-row items-center justify-between gap-2">
+				<h2 className="font-semibold">All Tasks</h2>
 				<Filters />
 			</header>
+
+			<hr className="my-2" />
 
 			{filteredTasks.length === 0 ? (
 				<div className="flex min-h-screen flex-col items-center justify-center gap-4 text-center">
@@ -43,13 +45,13 @@ export default function Home() {
 					</h3>
 				</div>
 			) : (
-				<div className="my-4 grid grid-cols-1 place-items-center gap-4 md:grid-cols-4">
+				<div className="my-4 grid grid-cols-2 place-items-center gap-2 md:grid-cols-4">
 					{filteredTasks.map((task) => (
 						<TaskItem key={task.id} task={task} isFlashing={isFlashing} />
 					))}
 
 					<button
-						className={`h-56 w-full rounded-2xl border-2 border-dashed border-border text-lg font-medium text-muted-foreground hover:bg-secondary md:size-56 ${
+						className={`aspect-square size-full rounded-2xl border-2 border-dashed border-border text-lg font-medium text-muted-foreground hover:bg-secondary ${
 							isFlashing ? "animate-flash" : ""
 						}`}
 						onClick={() => setIsDialogOpen(true)}

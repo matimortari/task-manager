@@ -26,7 +26,7 @@ export default function Navbar() {
 	]
 
 	return (
-		<div className="m-4 flex flex-row items-center justify-center md:my-12 md:flex-col md:items-center md:justify-start">
+		<div className="m-2 flex flex-row items-center justify-center md:my-12 md:flex-col md:items-center md:justify-start">
 			<ul className="flex flex-row items-center gap-12 md:flex-col">
 				{navItems.map((item) => (
 					<li className="group relative" key={item.title}>

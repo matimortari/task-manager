@@ -32,11 +32,23 @@ export function formatDate(date: string) {
 export const getColorforPriority = (priority: string) => {
 	switch (priority) {
 		case "High":
-			return "#EB4E31"
+			return "#e09c2a"
 		case "Normal":
-			return "#FFC300"
+			return "#9e3680"
 		case "Low":
-			return "#8BCE89"
+			return "#104a63"
+		default:
+			return "#cccccc"
+	}
+}
+
+// Helper function to get the color for task completion status
+export const getColorForCompletion = (status: string) => {
+	switch (status) {
+		case "Completed":
+			return "#3e4485"
+		case "Active":
+			return "#c85c61"
 		default:
 			return "#cccccc"
 	}

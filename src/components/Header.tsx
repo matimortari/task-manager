@@ -20,7 +20,7 @@ export default function Header() {
 	const handleSignInDialogClose = () => setIsSignInDialogOpen(false)
 
 	return (
-		<div className="flex w-full flex-col items-center justify-between pt-6 sm:flex-row md:p-2">
+		<div className="flex w-full flex-col items-center justify-between pt-8 sm:flex-row md:p-2">
 			<Image src="/logo.png" alt="Logo" width={35} height={35} className="absolute left-4 top-4" />
 
 			<div className="flex w-full flex-col items-center justify-between gap-4 sm:flex-row md:ml-28">
@@ -28,7 +28,7 @@ export default function Header() {
 					<h4 className="font-semibold">Hello, {session ? session.user.name : "Guest"} 👋</h4>
 					{session ? (
 						<div className="flex flex-row items-center justify-center md:justify-start">
-							<p className="text-start text-xs font-medium">
+							<p className="text-xs font-medium md:text-start">
 								You have <span className="font-bold text-accent">{activeTasks.length}</span> active tasks.{" "}
 								<span className="block md:hidden">
 									Create a{" "}
@@ -39,7 +39,7 @@ export default function Header() {
 							</p>
 						</div>
 					) : (
-						<p className="text-start text-xs font-medium">Please sign in to see your tasks.</p>
+						<p className="text-xs font-medium md:text-start">Please sign in to see your tasks.</p>
 					)}
 				</div>
 

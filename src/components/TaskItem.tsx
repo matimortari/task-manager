@@ -27,15 +27,15 @@ export default function TaskItem({ task, isFlashing }) {
 
 	return (
 		<div
-			className={`relative flex w-full flex-col gap-6 rounded-2xl bg-background p-4 transition-all duration-500 ease-in-out md:size-56 ${
+			className={`relative flex aspect-square size-full flex-col gap-4 rounded-2xl bg-background p-2 transition-all duration-500 ease-in-out md:p-4 ${
 				isFlashing ? "animate-flash" : ""
 			}`}
 		>
-			<div className="flex flex-row items-center justify-between gap-2">
-				<h4 className="truncate font-bold">{task.title}</h4>
-			</div>
+			<h4 className="truncate font-bold">{task.title}</h4>
 
-			<p className="line-clamp-3 h-16 overflow-hidden text-sm text-muted-foreground">{task.content}</p>
+			<p className="line-clamp-2 h-10 overflow-hidden text-xs text-muted-foreground md:h-16 md:text-sm">
+				{task.content}
+			</p>
 
 			<div className="flex flex-col gap-1 text-xs">
 				<p>
@@ -55,14 +55,14 @@ export default function TaskItem({ task, isFlashing }) {
 			<div className="absolute bottom-2 right-2 flex gap-1">
 				<button onClick={handleToggleCompletion}>
 					{task.completed ? (
-						<Icon icon="mdi:arrow-right-drop-circle" className="icon size-6 text-foreground hover:text-muted" />
+						<Icon icon="mdi:arrow-right-drop-circle" className="icon size-5 text-foreground hover:text-muted" />
 					) : (
-						<Icon icon="mdi:check-circle" className="icon size-6 text-foreground hover:text-muted" />
+						<Icon icon="mdi:check-circle" className="icon size-5 text-foreground hover:text-muted" />
 					)}
 				</button>
 
 				<button onClick={() => setIsDialogOpen(true)}>
-					<Icon icon="mdi:text-box-edit" className="icon size-6 text-accent hover:text-muted" />
+					<Icon icon="mdi:text-box-edit" className="icon size-5 text-accent hover:text-muted" />
 				</button>
 
 				<button onClick={handleDelete}>
