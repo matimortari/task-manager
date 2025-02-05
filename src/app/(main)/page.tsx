@@ -12,13 +12,15 @@ import { useState } from "react"
 
 export default function Home() {
 	const { data: session } = useSession()
-	const { filteredTasks } = useTasks()
+	const { tasks } = useTasks()
 
 	const isFlashing = useAnimations(1000)
-
 	const [isDialogOpen, setIsDialogOpen] = useState(false)
+	const [priority, setPriority] = useState("all")
 
 	const handleDialogClose = () => setIsDialogOpen(false)
+
+	const filteredTasks = tasks.filter((task) => priority === "all" || task.priority === priority)
 
 	if (!session) {
 		return <SignInPrompt />
@@ -28,7 +30,7 @@ export default function Home() {
 		<div className="card m-2 min-h-screen w-full self-center md:self-auto">
 			<header className="flex h-10 flex-row items-center justify-between gap-2">
 				<h2 className="font-semibold">All Tasks</h2>
-				<Filters />
+				<Filters priority={priority} setPriority={setPriority} />
 			</header>
 
 			<hr className="my-2" />

@@ -163,7 +163,7 @@ export const TasksProvider = ({ children }) => {
 			completedTasks,
 			overdueTasks
 		}),
-		[tasks, filteredTasks, task, priority, isEditing, activeTasks, completedTasks, overdueTasks] // Dependencies for when context should update
+		[tasks, filteredTasks, task, priority, isEditing, activeTasks, completedTasks, overdueTasks]
 	)
 
 	return <TasksContext.Provider value={contextValue}>{children}</TasksContext.Provider>
