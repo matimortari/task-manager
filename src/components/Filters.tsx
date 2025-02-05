@@ -1,11 +1,9 @@
 "use client"
 
-import { useTasks } from "@/src/components/context/TaskContext"
 import { Icon } from "@iconify/react"
 import { useState } from "react"
 
-export default function Filters() {
-	const { priority, setPriority } = useTasks()
+export default function Filters({ priority, setPriority }) {
 	const [isOpen, setIsOpen] = useState(false)
 
 	const priorities = ["All", "Low", "Normal", "High"]
@@ -28,7 +26,7 @@ export default function Filters() {
 							<button
 								key={item}
 								onClick={() => {
-									setPriority(item.toLowerCase())
+									setPriority(item.toLowerCase()) // Update local priority state
 									setIsOpen(false)
 								}}
 								className={`btn block w-full transition-all duration-300 ${
