@@ -3,7 +3,6 @@ import { useTasks } from "@/src/components/context/TaskContext"
 export function useTaskActions() {
 	const { tasks } = useTasks()
 
-	// Handle filtering tasks based on their status
 	const filterTasks = (status: "active" | "completed" | "overdue") => {
 		const currentDate = new Date()
 

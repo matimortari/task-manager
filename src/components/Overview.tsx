@@ -28,7 +28,7 @@ export default function Overview() {
 
 		return () => {
 			window.removeEventListener("keydown", handleKeyDown)
-			document.body.style.overflow = "" // Ensure scroll is restored on cleanup
+			document.body.style.overflow = ""
 		}
 	}, [isVisible])
 

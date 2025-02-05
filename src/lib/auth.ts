@@ -13,7 +13,7 @@ declare module "next-auth" {
 	}
 }
 
-// Set up the authentication options for NextAuth.js
+// Set up the authentication options for Auth.js
 export const authOptions = {
 	providers: [
 		GitHubProvider({

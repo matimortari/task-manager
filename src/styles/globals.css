@@ -33,11 +33,11 @@
 		--input: #f9faf8;
 		--ring: #131212;
 
-		--chart-1: #1b4e6b;
-		--chart-2: #5c63a2;
-		--chart-3: #c068a8;
-		--chart-4: #ec7176;
-		--chart-5: #f4ab33;
+		--chart-1: #548354;
+		--chart-2: #d1c629;
+		--chart-3: #a04646;
+		--chart-4: #417475;
+		--chart-5: #555483;
 	}
 
 	.dark {
@@ -69,11 +69,11 @@
 		--input: #2c2c2c;
 		--ring: #f9faf8;
 
-		--chart-1: #104a63;
-		--chart-2: #3e4485;
-		--chart-3: #9e3680;
-		--chart-4: #c85c61;
-		--chart-5: #e09c2a;
+		--chart-1: #548354;
+		--chart-2: #d1c629;
+		--chart-3: #a04646;
+		--chart-4: #417475;
+		--chart-5: #555483;
 	}
 
 	* {
