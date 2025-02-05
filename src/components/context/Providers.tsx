@@ -1,10 +1,10 @@
 "use client"
 
-/* Wrapper component for the main providers used in the application
-- SessionProvider: Manages user authentication sessions using NextAuth.js
-- QueryClientProvider: Sets up React Query for data fetching and caching
+/* Wrapper component for the application's context providers
+- SessionProvider: Manages Auth.js user sessions
+- QueryClientProvider: Sets up the React Query client 
 - ReactQueryDevtools: Enables React Query debugging tools in development
-- ThemeProvider: Adds support for light/dark theme selection using next-themes
+- ThemeProvider: Allow theme selection using next-themes
 - Analytics: Provides Vercel analytics for tracking user interactions */
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
@@ -19,7 +19,13 @@ const queryClient = new QueryClient({
 	defaultOptions: { queries: { staleTime: 60 * 1000 } }
 })
 
-export default function Providers({ children, session }: { readonly children: ReactNode; readonly session: Session }) {
+export default function Providers({
+	children,
+	session
+}: {
+	readonly children: ReactNode
+	readonly session: Session | null
+}) {
 	return (
 		<SessionProvider session={session}>
 			<QueryClientProvider client={queryClient}>

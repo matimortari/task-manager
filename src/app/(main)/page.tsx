@@ -29,7 +29,7 @@ export default function Home() {
 	return (
 		<div className="card m-2 min-h-screen w-full self-center md:self-auto">
 			<header className="flex h-10 flex-row items-center justify-between gap-2">
-				<h2 className="font-semibold">All Tasks</h2>
+				<h2 className="font-bold">All Tasks</h2>
 				<Filters priority={priority} setPriority={setPriority} />
 			</header>
 
@@ -38,7 +38,7 @@ export default function Home() {
 			{filteredTasks.length === 0 ? (
 				<div className="flex min-h-screen flex-col items-center justify-center gap-4 text-center">
 					<Icon icon="solar:sleeping-square-bold" className="size-16 text-accent" />
-					<h2 className="text-xl font-semibold">No tasks yet.</h2>
+					<h2 className="font-bold">No tasks yet.</h2>
 					<h3 className="text-base text-muted-foreground">
 						You have no tasks yet. To get started, click{" "}
 						<button onClick={() => setIsDialogOpen(true)} className="font-bold text-primary">

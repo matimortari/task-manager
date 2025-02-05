@@ -22,14 +22,17 @@ export default function Completed() {
 
 	if (filteredTasks.length === 0) {
 		return (
-			<div className="card m-2 min-h-screen">
+			<div className="card m-2 min-h-screen w-full self-center md:self-auto">
 				<header className="flex flex-row items-center justify-between gap-2">
-					<h2 className="text-xl font-semibold">Completed Tasks</h2>
+					<h2 className="font-bold">Completed Tasks</h2>
 				</header>
+
+				<hr className="my-2" />
+
 				<div className="flex min-h-screen flex-col items-center justify-center gap-4 text-center">
 					<Icon icon="solar:sleeping-square-bold" className="size-16 text-accent" />
-					<h2 className="text-xl font-semibold">No tasks yet.</h2>
-					<h3 className="text-base text-muted-foreground">You have no tasks yet.</h3>
+					<h2 className="font-bold">No tasks yet.</h2>
+					<h4 className="text-muted-foreground">You have no tasks yet.</h4>
 				</div>
 			</div>
 		)
@@ -39,14 +42,15 @@ export default function Completed() {
 		return (
 			<div className="card m-2 min-h-screen w-full">
 				<header className="flex flex-row items-center justify-between gap-2">
-					<h2 className="text-xl font-semibold">Completed Tasks</h2>
+					<h2 className="font-bold">Completed Tasks</h2>
 				</header>
+
+				<hr className="my-2" />
+
 				<div className="flex min-h-screen flex-col items-center justify-center gap-4 text-center">
 					<Icon icon="tdesign:task-time-filled" className="size-16 text-accent" />
-					<h2 className="text-xl font-semibold">No completed tasks.</h2>
-					<h3 className="text-base text-muted-foreground">
-						Once you complete a task, it will appear here. Let's get started!
-					</h3>
+					<h2 className="font-bold">No completed tasks.</h2>
+					<h4 className="text-muted-foreground">Once you complete a task, it will appear here. Let's get started!</h4>
 				</div>
 			</div>
 		)
@@ -55,7 +59,7 @@ export default function Completed() {
 	return (
 		<div className="card m-2 min-h-screen w-full self-center md:self-auto">
 			<header className="flex flex-row items-center justify-between gap-2">
-				<h2 className="font-semibold">Completed Tasks</h2>
+				<h2 className="font-bold">Completed Tasks</h2>
 			</header>
 
 			<hr className="my-2" />

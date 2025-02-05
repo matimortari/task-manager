@@ -26,7 +26,7 @@ export default function Filters({ priority, setPriority }) {
 							<button
 								key={item}
 								onClick={() => {
-									setPriority(item.toLowerCase()) // Update local priority state
+									setPriority(item.toLowerCase())
 									setIsOpen(false)
 								}}
 								className={`btn block w-full transition-all duration-300 ${

@@ -66,9 +66,10 @@ function TaskCompletionChart({ completedTasks, activeTasks }) {
 				</Pie>
 
 				<Tooltip
-					wrapperClassName="popover text-xs"
-					labelClassName="text-foreground font-semibold"
-					contentStyle={{ backgroundColor: "var(--background)", border: "none" }}
+					cursor={false}
+					wrapperClassName="popover text-sm font-semibold"
+					contentStyle={{ backgroundColor: "var(--background)" }}
+					itemStyle={{ color: "var(--foreground)" }}
 				/>
 			</PieChart>
 		</ResponsiveContainer>
@@ -95,9 +96,11 @@ function TaskPriorityChart({ priorityCounts }: Readonly<{ priorityCounts: Record
 				</Bar>
 
 				<Tooltip
-					wrapperClassName="popover text-xs"
-					labelClassName="text-foreground font-semibold"
-					contentStyle={{ backgroundColor: "var(--background)", border: "none" }}
+					cursor={false}
+					wrapperClassName="popover text-sm font-semibold"
+					contentStyle={{ backgroundColor: "var(--background)" }}
+					labelStyle={{ color: "var(--accent)" }}
+					itemStyle={{ color: "var(--foreground)" }}
 				/>
 			</BarChart>
 		</ResponsiveContainer>
@@ -126,6 +129,7 @@ export default function TaskCharts() {
 		<div className="card flex w-full flex-col items-center">
 			<div className="flex w-full flex-col items-center gap-2">
 				<h3>Task Completion</h3>
+
 				<TaskCompletionChart completedTasks={completedTasks.length} activeTasks={activeTasks.length} />
 			</div>
 
@@ -133,6 +137,7 @@ export default function TaskCharts() {
 
 			<div className="flex w-full flex-col items-center gap-2">
 				<h3>Tasks By Priority</h3>
+
 				<TaskPriorityChart priorityCounts={priorityCounts} />
 			</div>
 		</div>

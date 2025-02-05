@@ -1,10 +1,9 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import { DefaultSession, SessionStrategy } from "next-auth"
+import { DefaultSession, NextAuthOptions, SessionStrategy } from "next-auth"
 import GitHubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
 import { db } from "./db"
 
-// Extend the built-in session type
 declare module "next-auth" {
 	interface Session {
 		user: DefaultSession["user"] & {
@@ -13,8 +12,7 @@ declare module "next-auth" {
 	}
 }
 
-// Set up the authentication options for NextAuth.js
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
 	providers: [
 		GitHubProvider({
 			clientId: process.env.GITHUB_CLIENT_ID ?? "",
