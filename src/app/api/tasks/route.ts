@@ -7,7 +7,7 @@ export async function GET() {
 	const { error, session, response } = await getSessionOrUnauthorized()
 	if (error) return response
 
-	const tasks = await db.task.findMany({ where: { userId: session.user.id } })
+	const tasks = await db.task.findMany({ where: { userId: session?.user.id } })
 	if (!tasks) return NextResponse.json({ error: "No tasks found" }, { status: 404 })
 
 	return NextResponse.json(tasks, { status: 200 })
@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
 			priority,
 			status,
 			completed: false,
-			user: { connect: { id: session.user.id } }
+			user: { connect: { id: session?.user.id } }
 		}
 	})
 
@@ -52,7 +52,7 @@ export async function PUT(req: NextRequest) {
 	const { title, content, dueDate, priority, status, completed } = await req.json()
 
 	const existingTask = await db.task.findFirst({ where: { id: taskId } })
-	if (!existingTask || existingTask.userId !== session.user.id) {
+	if (!existingTask || existingTask.userId !== session?.user.id) {
 		return NextResponse.json({ error: "Task not found or not authorized" }, { status: 404 })
 	}
 
@@ -81,14 +81,14 @@ export async function DELETE(req: NextRequest) {
 	// Delete a specific task if taskId is provided. Otherwise, delete all tasks
 	if (taskId) {
 		const existingTask = await db.task.findFirst({ where: { id: taskId } })
-		if (!existingTask || existingTask.userId !== session.user.id) {
+		if (!existingTask || existingTask.userId !== session?.user.id) {
 			return NextResponse.json({ error: "Task not found or not authorized" }, { status: 404 })
 		}
 
 		await db.task.delete({ where: { id: taskId } })
 		return NextResponse.json({ id: taskId }, { status: 200 })
 	} else {
-		await db.task.deleteMany({ where: { userId: session.user.id } })
+		await db.task.deleteMany({ where: { userId: session?.user.id } })
 		return NextResponse.json({ message: "All tasks deleted" }, { status: 200 })
 	}
 }
