@@ -16,9 +16,17 @@ import { Toaster } from "react-hot-toast"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
+	metadataBase: new URL("https://wdc-task-manager.vercel.app"),
 	title: "Task Manager",
 	description: "Simple task manager web application.",
 	keywords: ["Task Manager", "Task", "Task App", "Task Manager Page"],
+	openGraph: {
+		url: "https://wdc-task-manager.vercel.app",
+		title: "Task Manager",
+		description: "Simple task manager web application.",
+		type: "website",
+		images: "/og-image.png"
+	},
 	other: {
 		"google-site-verification": "2j0bcfhh8FCYPpzFylzbiPjl3Pa0X7lMuG060ctsCsA"
 	}
