@@ -2,22 +2,36 @@
 
 import { Icon } from "@iconify/react"
 import { signOut, useSession } from "next-auth/react"
+import { useTheme } from "next-themes"
 import Image from "next/image"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useTasks } from "./context/TaskContext"
 import AddTaskDialog from "./dialogs/AddTaskDialog"
 import SignInDialog from "./dialogs/SignInDialog"
-import ThemeSwitch from "./ThemeSwitch"
 
 export default function Header() {
 	const { data: session } = useSession()
 	const { activeTasks } = useTasks()
+	const { theme, setTheme } = useTheme()
 
+	const [mounted, setMounted] = useState(false)
 	const [isTaskDialogOpen, setIsTaskDialogOpen] = useState(false)
 	const [isSignInDialogOpen, setIsSignInDialogOpen] = useState(false)
 
 	const handleTaskDialogClose = () => setIsTaskDialogOpen(false)
 	const handleSignInDialogClose = () => setIsSignInDialogOpen(false)
+
+	const handleThemeToggle = () => {
+		setTheme(theme === "light" ? "dark" : "light")
+	}
+
+	const themeTitle = theme === "light" ? "Light" : "Dark"
+
+	useEffect(() => {
+		setMounted(true)
+	}, [])
+
+	if (!mounted) return null
 
 	return (
 		<div className="flex w-full flex-col items-center justify-between pt-8 sm:flex-row md:p-2">
@@ -54,7 +68,14 @@ export default function Header() {
 				)}
 
 				<div className="flex items-center gap-2">
-					<ThemeSwitch />
+					<div className="flex items-center justify-start gap-2">
+						<span className="text-xs font-semibold">Theme: {themeTitle}</span>
+						<label htmlFor="theme-switch" className="relative inline-block h-4 w-8">
+							<span className="sr-only">Toggle Theme</span>
+							<input id="theme-switch" type="checkbox" className="size-0 opacity-0" onChange={handleThemeToggle} />
+							<span className="slider round" />
+						</label>
+					</div>
 
 					{session ? (
 						<button onClick={() => signOut()} className="flex items-center justify-center rounded-full border p-2">

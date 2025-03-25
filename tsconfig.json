@@ -3,6 +3,7 @@
 		"plugins": [{ "name": "next" }],
 		"lib": ["dom", "dom.iterable", "esnext"],
 		"module": "esnext",
+		"target": "ES2017",
 		"jsx": "preserve",
 		"allowJs": true,
 		"strict": true,
