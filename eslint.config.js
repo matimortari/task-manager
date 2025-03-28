@@ -1,21 +1,18 @@
-import { fixupConfigRules } from "@eslint/compat"
-import pluginJs from "@eslint/js"
-import pluginReactConfig from "eslint-plugin-react/configs/recommended.js"
+import eslint from "@eslint/js"
 import pluginTailwindCSS from "eslint-plugin-tailwindcss"
 import globals from "globals"
 import tseslint from "typescript-eslint"
 
-export default [
-	...fixupConfigRules(pluginReactConfig),
+const eslintConfig = [
 	...tseslint.configs.recommended,
-	pluginJs.configs.recommended,
+	eslint.configs.recommended,
 
-	{ files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
 	{ ignores: ["node_modules/", "dist/", "tests/", "coverage/"] },
-	{ languageOptions: { globals: { ...globals.browser, ...globals.node } } },
-	{ settings: { react: { version: "detect" } } },
 	{
+		files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
+		settings: { react: { version: "detect" } },
 		plugins: { tailwindcss: pluginTailwindCSS },
+		languageOptions: { globals: { ...globals.browser, ...globals.node } },
 		rules: {
 			"no-undef": "off",
 			"no-unused-vars": "off",
@@ -31,3 +28,5 @@ export default [
 		}
 	}
 ]
+
+export default eslintConfig
