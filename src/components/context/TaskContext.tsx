@@ -35,7 +35,7 @@ export const TasksProvider = ({ children }) => {
 	}
 
 	// Create a new task
-	const createTask = async (task) => {
+	const createTask = async (task: Task) => {
 		try {
 			const res = await fetch("/api/tasks", {
 				method: "POST",
@@ -53,7 +53,7 @@ export const TasksProvider = ({ children }) => {
 	}
 
 	// Update a task
-	const updateTask = async (task) => {
+	const updateTask = async (task: Task) => {
 		try {
 			const res = await fetch(`/api/tasks?id=${task.id}`, {
 				method: "PUT",

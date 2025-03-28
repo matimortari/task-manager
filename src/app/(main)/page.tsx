@@ -53,10 +53,10 @@ export default function Home() {
 					))}
 
 					<button
-						className={`aspect-square size-full rounded-2xl border-2 border-dashed border-border text-lg font-medium text-muted-foreground hover:bg-secondary ${
+						onClick={() => setIsDialogOpen(true)}
+						className={`aspect-square size-full rounded-2xl border-2  border-dashed border-border text-lg font-medium text-muted-foreground hover:bg-secondary ${
 							isFlashing ? "animate-flash" : ""
 						}`}
-						onClick={() => setIsDialogOpen(true)}
 					>
 						Add New Task
 					</button>
