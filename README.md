@@ -14,12 +14,11 @@ Simple task manager website with some extra features and a clean user interface!
 
 ## 🛠️ Stack
 
-- **Next.js** for routing & server-side rendering.
+- **Next.js** for routing and server-side rendering.
 - **Auth.js** for authentication with Google & GitHub.
 - **Prisma** for database management.
 - **React Query** for data fetching and caching.
 - **React Hook Form** & **Zod** for form management and validation.
-- **shadcn/ui** for UI components.
 - **TypeScript**.
 - **Tailwind CSS**.
 
