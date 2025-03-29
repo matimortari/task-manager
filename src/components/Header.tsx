@@ -1,13 +1,13 @@
 "use client"
 
+import { useTasks } from "@/src/components/context/TaskContext"
+import AddTaskDialog from "@/src/components/dialogs/AddTaskDialog"
+import SignInDialog from "@/src/components/dialogs/SignInDialog"
 import { Icon } from "@iconify/react"
 import { signOut, useSession } from "next-auth/react"
 import { useTheme } from "next-themes"
 import Image from "next/image"
 import { useEffect, useState } from "react"
-import { useTasks } from "./context/TaskContext"
-import AddTaskDialog from "./dialogs/AddTaskDialog"
-import SignInDialog from "./dialogs/SignInDialog"
 
 export default function Header() {
 	const { data: session } = useSession()

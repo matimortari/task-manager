@@ -1,8 +1,7 @@
+import { authOptions } from "@/src/lib/auth"
 import { getServerSession } from "next-auth"
 import { NextResponse } from "next/server"
-import { authOptions } from "./auth"
 
-// Get the session or return an unauthorized JSON response
 export async function getSessionOrUnauthorized() {
 	const session = await getServerSession(authOptions)
 	if (!session?.user) {
@@ -12,7 +11,6 @@ export async function getSessionOrUnauthorized() {
 	return { error: false, session }
 }
 
-// Helper function to format a date string
 export function formatDate(date: string) {
 	return new Date(date).toLocaleDateString("en-US", {
 		year: "numeric",
@@ -21,10 +19,8 @@ export function formatDate(date: string) {
 	})
 }
 
-// Helper function to capitalize the first letter of a string
 export const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
 
-// Get the color to represent a task priority
 export const getColorforPriority = (priority: string) => {
 	switch (priority) {
 		case "Low":
@@ -38,7 +34,6 @@ export const getColorforPriority = (priority: string) => {
 	}
 }
 
-// Get the color for task completion status
 export const getColorForCompletion = (status: string) => {
 	switch (status) {
 		case "Active":

@@ -1,10 +1,10 @@
 "use client"
 
+import Profile from "@/src/components/Profile"
+import TaskCharts from "@/src/components/TaskCharts"
 import { Icon } from "@iconify/react"
 import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
-import Profile from "./Profile"
-import TaskCharts from "./TaskCharts"
 
 export default function Overview() {
 	const { data: session } = useSession()

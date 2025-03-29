@@ -1,10 +1,10 @@
 "use client"
 
 import { useTasks } from "@/src/components/context/TaskContext"
+import { getColorForCompletion, getColorforPriority } from "@/src/lib/utils"
 import { useSession } from "next-auth/react"
 import { useState } from "react"
 import { Bar, BarChart, Cell, Pie, PieChart, ResponsiveContainer, Sector, Tooltip, XAxis } from "recharts"
-import { getColorForCompletion, getColorforPriority } from "../lib/utils"
 
 const renderActiveShape = (props: any) => {
 	const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill } = props

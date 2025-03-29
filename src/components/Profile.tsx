@@ -1,9 +1,9 @@
 "use client"
 
+import { useTasks } from "@/src/components/context/TaskContext"
 import { Icon } from "@iconify/react"
 import { useSession } from "next-auth/react"
 import Image from "next/image"
-import { useTasks } from "./context/TaskContext"
 
 function StatCard({ label, value }) {
 	return (
