@@ -1,10 +1,10 @@
 "use client"
 
+import { useTasks } from "@/src/components/context/TaskContext"
+import EditTaskDialog from "@/src/components/dialogs/EditTaskDialog"
+import { capitalize, formatDate } from "@/src/lib/utils"
 import { Icon } from "@iconify/react"
 import { useState } from "react"
-import { capitalize, formatDate } from "../lib/utils"
-import { useTasks } from "./context/TaskContext"
-import EditTaskDialog from "./dialogs/EditTaskDialog"
 
 export default function TaskItem({ task, isFlashing }) {
 	const [isDialogOpen, setIsDialogOpen] = useState(false)

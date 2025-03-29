@@ -1,6 +1,6 @@
+import SignInDialog from "@/src/components/dialogs/SignInDialog"
 import { Icon } from "@iconify/react"
 import { useState } from "react"
-import SignInDialog from "./dialogs/SignInDialog"
 
 export default function SignInPrompt() {
 	const [isDialogOpen, setIsDialogOpen] = useState(false)

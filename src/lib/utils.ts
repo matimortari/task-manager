@@ -1,6 +1,6 @@
+import { authOptions } from "@/src/lib/auth"
 import { getServerSession } from "next-auth"
 import { NextResponse } from "next/server"
-import { authOptions } from "./auth"
 
 // Get the session or return an unauthorized JSON response
 export async function getSessionOrUnauthorized() {
